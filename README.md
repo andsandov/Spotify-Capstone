@@ -1,4 +1,4 @@
-# spotify_polls
+# Spotify Capstone Project
 
 A project that uses the Spotify API to allow users to collaborate on playlists unqiuely
 
