@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class SpotifyAuth {
-  final String clientId = '25ec7872309a4db88a104cd6930dd4e5'; // Replace with your client ID
-  final String redirectUri = 'http://localhost:8000/callback'; // Adjust if necessary
+  final String clientId = ''; // Replace with your client ID
+  final String redirectUri = 'http://localhost:8000/callback';
   final String scopes = 'user-read-private user-read-email user-library-read playlist-read-private';
 
   void authenticate() {
