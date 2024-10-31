@@ -4,11 +4,23 @@ A project that uses the Spotify API to allow users to collaborate on playlists u
 
 ## Useful Information and Documentation
 
+### Testing
+
 https://dart.dev/guides/testing
-https://docs.flutter.dev/cookbook/networking/web-sockets
-https://stackoverflow.com/questions/62864814/stream-audio-via-websocket-web-audio
+
 https://github.com/flutter/flutter/issues/123945
+
+### Websockets
+
+https://docs.flutter.dev/cookbook/networking/web-sockets
+
+### Spotify API
+
 https://developer.spotify.com/documentation/web-api
+
+### Icons
+
+https://api.flutter.dev/flutter/material/Icons-class.html
 
 ## Getting Started
 
