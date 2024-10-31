@@ -1,6 +1,6 @@
 # Spotify Capstone Project
 
-A project that uses the Spotify API to allow users to collaborate on playlists unqiuely
+A project that uses the Spotify API to allow users to collaborate on playlists uniquely
 
 ## Getting Started
 
