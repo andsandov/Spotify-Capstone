@@ -22,6 +22,10 @@ https://developer.spotify.com/documentation/web-api
 
 https://api.flutter.dev/flutter/material/Icons-class.html
 
+## Useful Commands
+
+'flutter run' starts up the app
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
