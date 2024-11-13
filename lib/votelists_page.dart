@@ -10,6 +10,13 @@ class VotelistsPage extends StatefulWidget {
 }
 
 class _VotelistsPageState extends State<VotelistsPage> {
+  bool showCreationButtons = false;
+
+  void toggleShowButtons() {
+    setState(() {
+      showCreationButtons = !showCreationButtons;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +38,9 @@ class _VotelistsPageState extends State<VotelistsPage> {
               child: const Text("go back")
             ),
             ElevatedButton(
-              onPressed: () {
-                //reveal more buttons
-              },
-              child: const Text("reveal more buttons")
-            )
+              onPressed: toggleShowButtons,
+              child: Text(showCreationButtons ? "hide buttons" : "show buttons")
+            ),
           ],
         ),
       ),
