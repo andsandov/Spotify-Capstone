@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_polls/votelists_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key, this.title = "Login Page"});
+class VotelistsPage extends StatefulWidget {
+  const VotelistsPage({super.key, this.title = "Votelists Page"});
 
   final String title;
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<VotelistsPage> createState() => _VotelistsPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _VotelistsPageState extends State<VotelistsPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -25,13 +24,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const VotelistsPage())
+                Navigator.pop(
+                    context
                 );
               },
-              child: const Text('go to votelists page')
+              child: const Text("go back")
             )
           ],
         ),
