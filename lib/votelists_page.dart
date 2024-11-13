@@ -29,6 +29,12 @@ class _VotelistsPageState extends State<VotelistsPage> {
                 );
               },
               child: const Text("go back")
+            ),
+            ElevatedButton(
+              onPressed: () {
+                //reveal more buttons
+              },
+              child: const Text("reveal more buttons")
             )
           ],
         ),
