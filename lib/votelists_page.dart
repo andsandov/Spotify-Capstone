@@ -41,6 +41,18 @@ class _VotelistsPageState extends State<VotelistsPage> {
               onPressed: toggleShowButtons,
               child: Text(showCreationButtons ? "hide buttons" : "show buttons")
             ),
+            if (showCreationButtons) ...[
+              SizedBox(height: 10),  // Adds some space between buttons
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('Button 1'),
+              ),
+              SizedBox(height: 10),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('Button 2'),
+              ),
+            ],
           ],
         ),
       ),
