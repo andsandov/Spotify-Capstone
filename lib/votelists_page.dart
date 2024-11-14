@@ -18,6 +18,76 @@ class _VotelistsPageState extends State<VotelistsPage> {
     });
   }
 
+  void _showCreatePopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Create Popup", style: TextStyle(fontSize: 18)),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    print("Create popup button pressed!");
+                  },
+                  child: Text("Do something"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Close"),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showRegisterPopup(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Register popup", style: TextStyle(fontSize: 18)),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    print("Register popup button pressed!");
+                  },
+                  child: Text("Do another thing"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Close"),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +114,13 @@ class _VotelistsPageState extends State<VotelistsPage> {
             if (showCreationButtons) ...[
               SizedBox(height: 10),  // Adds some space between buttons
               ElevatedButton(
-                onPressed: () {},
-                child: Text('Button 1'),
+                onPressed: () => _showRegisterPopup(context),
+                child: Text('Register Button'),
               ),
               SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {},
-                child: Text('Button 2'),
+                onPressed: () => _showCreatePopup(context),
+                child: Text('Create Button'),
               ),
             ],
           ],
