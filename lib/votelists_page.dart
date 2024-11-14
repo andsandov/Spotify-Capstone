@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class VotelistsPage extends StatefulWidget {
@@ -35,7 +37,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    print("Create popup button pressed!");
+                    log("Create popup button pressed!");
                   },
                   child: Text("Do something"),
                 ),
@@ -70,7 +72,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    print("Register popup button pressed!");
+                    log("Register popup button pressed!");
                   },
                   child: Text("Do another thing"),
                 ),
@@ -91,40 +93,60 @@ class _VotelistsPageState extends State<VotelistsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              widget.title,
-              style: const TextStyle(fontSize: 30),
+      body: Stack(
+        children: [
+          GestureDetector(
+            onTap: () {
+              if (showCreationButtons) {
+                log("state set to false");
+                setState(() {
+                  showCreationButtons = false;
+                });
+              }
+            },
+            child: Container(
+              color: Colors.transparent,
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(
-                    context
-                );
-              },
-              child: const Text("go back")
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  widget.title,
+                  style: const TextStyle(fontSize: 30),
+                ),
+                ElevatedButton(
+                    onPressed: () { Navigator.pop(context); },
+                    child: const Text("go back")
+                ),
+                ElevatedButton(
+                    onPressed: toggleShowButtons,
+                    child: Text(showCreationButtons ? "hide buttons" : "show buttons")
+                ),
+                if (showCreationButtons) ...[
+                  GestureDetector(
+                    onTap: (){},
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),  // Adds some space between buttons
+                        ElevatedButton(
+                          onPressed: () => _showRegisterPopup(context),
+                          child: const Text('Register Button'),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: () => _showCreatePopup(context),
+                          child: const Text('Create Button'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ],
             ),
-            ElevatedButton(
-              onPressed: toggleShowButtons,
-              child: Text(showCreationButtons ? "hide buttons" : "show buttons")
-            ),
-            if (showCreationButtons) ...[
-              SizedBox(height: 10),  // Adds some space between buttons
-              ElevatedButton(
-                onPressed: () => _showRegisterPopup(context),
-                child: Text('Register Button'),
-              ),
-              SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () => _showCreatePopup(context),
-                child: Text('Create Button'),
-              ),
-            ],
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
