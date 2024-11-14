@@ -20,7 +20,42 @@ class _VotelistsPageState extends State<VotelistsPage> {
     });
   }
 
+  // TODO give this popup an text input and submit button and have a form that
+  //  retrieves the value in the text input.
+
+
+
+
+
   void _showCreatePopup(BuildContext context) {
+    final myController = TextEditingController();
+
+    inputField() {
+      return TextField(
+        controller: myController,
+      );
+    }
+
+    displayInputFieldValueButton() {
+      return FloatingActionButton(
+        // When the user presses the button, show an alert dialog containing
+        // the text that the user has entered into the text field.
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                // Retrieve the text that the user has entered by using the
+                // TextEditingController.
+                content: Text(myController.text),
+              );
+            },
+          );
+        },
+        child: const Text("Submit"),
+      );
+    }
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -34,18 +69,20 @@ class _VotelistsPageState extends State<VotelistsPage> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text("Create Popup", style: TextStyle(fontSize: 18)),
+                inputField(),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    log("Create popup button pressed!");
-                  },
-                  child: Text("Do something"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text("Close"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    displayInputFieldValueButton(),
+                    ElevatedButton(
+                      onPressed: () {
+                        myController.dispose();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Close"),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -98,7 +135,6 @@ class _VotelistsPageState extends State<VotelistsPage> {
           GestureDetector(
             onTap: () {
               if (showCreationButtons) {
-                log("state set to false");
                 setState(() {
                   showCreationButtons = false;
                 });
