@@ -25,6 +25,7 @@ https://api.flutter.dev/flutter/material/Icons-class.html
 ## Useful Commands
 
 'flutter run' starts up the app
+
 'flutter pub add [package]' adds specified package to the project
 
 ## Getting Started
