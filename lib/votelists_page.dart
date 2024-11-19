@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:spotify_polls/voting_page.dart';
@@ -16,40 +17,34 @@ class _VotelistsPageState extends State<VotelistsPage> {
   // Vincent-voteList-updated
   List<Widget> buttons = [];
 
-  void addNewButton(){
+  void addNewButton() {
     setState(() {
       buttons.add(
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VotingPage())
-              );
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const VotingPage()));
             },
             child: const Text("New Playlist"),
-          ),),
+          ),
+        ),
       );
     });
   }
-  
-  // eric-votelist-dialog
-  bool showCreationButtons = false;
 
-  void toggleShowButtons() {
+  // eric-votelist-dialog
+  bool _isBlurred = false;
+
+  void _toggleBlur() {
     setState(() {
-      showCreationButtons = !showCreationButtons;
+      _isBlurred = !_isBlurred;
     });
   }
 
   // TODO give this popup an text input and submit button and have a form that
   //  retrieves the value in the text input.
-
-
-
-
 
   void _showCreatePopup(BuildContext context) {
     final myController = TextEditingController();
@@ -80,9 +75,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
       );
     }
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
+    showDialog(context: context, builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -92,9 +85,9 @@ class _VotelistsPageState extends State<VotelistsPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("Create Popup", style: TextStyle(fontSize: 18)),
+                const Text("Create Popup", style: TextStyle(fontSize: 18)),
                 inputField(),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -104,7 +97,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
                         myController.dispose();
                         Navigator.of(context).pop();
                       },
-                      child: Text("Close"),
+                      child: const Text("Close"),
                     ),
                   ],
                 ),
@@ -129,19 +122,19 @@ class _VotelistsPageState extends State<VotelistsPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text("Register popup", style: TextStyle(fontSize: 18)),
-                SizedBox(height: 20),
+                const Text("Register popup", style: TextStyle(fontSize: 18)),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     log("Register popup button pressed!");
                   },
-                  child: Text("Do another thing"),
+                  child: const Text("Do another thing"),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text("Close"),
+                  child: const Text("Close"),
                 ),
               ],
             ),
@@ -153,91 +146,155 @@ class _VotelistsPageState extends State<VotelistsPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen size and FAB dimensions
+    const double fabHeight = 56.0; // Default FAB height
+    final double bottomPadding = MediaQuery.of(context).viewPadding.bottom;
+    final double rightPadding = MediaQuery.of(context).viewPadding.right;
+
     return Scaffold(
-      // Vincent-voteList-updated
-      body : Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                widget.title,
-                style: const TextStyle(fontSize: 30),
-              ),
-              const SizedBox(height: 20, width: 50,),
-              Column(
-                children: buttons,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(
-                        context
-                    );
-                  },
-                  child: const Text("go back")
-              ),
-            ],
-          )
-        ),
-      floatingActionButton : FloatingActionButton(
-        onPressed: addNewButton,
-        child : const Text("+"),
-        
-        // eric-votelist-dialog
       body: Stack(
         children: [
           GestureDetector(
-            onTap: () {
-              if (showCreationButtons) {
-                setState(() {
-                  showCreationButtons = false;
-                });
-              }
-            },
-            child: Container(
-              color: Colors.transparent,
-            ),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  widget.title,
-                  style: const TextStyle(fontSize: 30),
-                ),
-                ElevatedButton(
-                    onPressed: () { Navigator.pop(context); },
-                    child: const Text("go back")
-                ),
-                ElevatedButton(
-                    onPressed: toggleShowButtons,
-                    child: Text(showCreationButtons ? "hide buttons" : "show buttons")
-                ),
-                if (showCreationButtons) ...[
-                  GestureDetector(
-                    onTap: (){},
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 10),  // Adds some space between buttons
-                        ElevatedButton(
-                          onPressed: () => _showRegisterPopup(context),
-                          child: const Text('Register Button'),
-                        ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () => _showCreatePopup(context),
-                          child: const Text('Create Button'),
-                        ),
-                      ],
+              onTap: () {
+                log("cancel new votelist");
+                _toggleBlur();
+              },
+              child: Stack(
+                children: [
+                  Container(padding: const EdgeInsets.all(10), child: const BackButton()),
+                  const Center(
+                    child: Text(
+                      "Main Page Content",
+                      style: TextStyle(fontSize: 20),
                     ),
                   ),
+                  if (_isBlurred)
+                    BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Container(
+                          color: Colors.transparent,
+                        )),
+                  if (_isBlurred) ...[
+                    Positioned(
+                        bottom: fabHeight + bottomPadding + 32.0,
+                        right: rightPadding + 16.0,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Column(
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    _showCreatePopup(context);
+                                    log("Create Votelist pressed");
+                                  },
+                                  child: const Text("Create Votelist")),
+                              const SizedBox(height: 10),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    _showRegisterPopup(context);
+                                    log("Register Votelist pressed");
+                                  },
+                                  child: const Text("Register Votelist")),
+                            ],
+                          ),
+                        )),
+                  ],
                 ],
-              ],
-            ),
-          ),
+              )),
         ],
       ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: _toggleBlur,
+        child: Text(
+          _isBlurred ? "Close" : "Open Menu",
+          textAlign: TextAlign.center,
+        ),
+      ),
+
+      // // Vincent-voteList-updated
+      // body : Center(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //       crossAxisAlignment: CrossAxisAlignment.center,
+      //       children: [
+      //         Text(
+      //           widget.title,
+      //           style: const TextStyle(fontSize: 30),
+      //         ),
+      //         const SizedBox(height: 20, width: 50,),
+      //         Column(
+      //           children: buttons,
+      //         ),
+      //         ElevatedButton(
+      //             onPressed: () {
+      //               Navigator.pop(
+      //                   context
+      //               );
+      //             },
+      //             child: const Text("go back")
+      //         ),
+      //       ],
+      //     )
+      //   ),
+      // floatingActionButton : FloatingActionButton(
+      //   onPressed: addNewButton,
+      //   child : const Text("+"),
+      //
+      //   // eric-votelist-dialog
+      // body: Stack(
+      //   children: [
+      //     GestureDetector(
+      //       onTap: () {
+      //         if (showCreationButtons) {
+      //           setState(() {
+      //             showCreationButtons = false;
+      //           });
+      //         }
+      //       },
+      //       child: Container(
+      //         color: Colors.transparent,
+      //       ),
+      //     ),
+      //     Center(
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: <Widget>[
+      //           Text(
+      //             widget.title,
+      //             style: const TextStyle(fontSize: 30),
+      //           ),
+      //           ElevatedButton(
+      //               onPressed: () { Navigator.pop(context); },
+      //               child: const Text("go back")
+      //           ),
+      //           ElevatedButton(
+      //               onPressed: toggleShowButtons,
+      //               child: Text(showCreationButtons ? "hide buttons" : "show buttons")
+      //           ),
+      //           if (showCreationButtons) ...[
+      //             GestureDetector(
+      //               onTap: (){},
+      //               child: Column(
+      //                 children: [
+      //                   const SizedBox(height: 10),  // Adds some space between buttons
+      //                   ElevatedButton(
+      //                     onPressed: () => _showRegisterPopup(context),
+      //                     child: const Text('Register Button'),
+      //                   ),
+      //                   const SizedBox(height: 10),
+      //                   ElevatedButton(
+      //                     onPressed: () => _showCreatePopup(context),
+      //                     child: const Text('Create Button'),
+      //                   ),
+      //                 ],
+      //               ),
+      //             ),
+      //           ],
+      //         ],
+      //       ),
+      //     ),
+      //   ],
     );
   }
 }
