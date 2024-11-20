@@ -197,6 +197,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
                       bottom: fabHeight + bottomPadding + 32.0,
                       right: rightPadding + 16.0,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           ElevatedButton(
                               onPressed: () {
@@ -217,14 +218,34 @@ class _VotelistsPageState extends State<VotelistsPage> {
                   ],
                 ],
               )),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              child: FloatingActionButton(
+                onPressed: _toggleBlur,
+                child: Text(
+                  _isBlurred ? "Close" : "Open Menu",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              child: FloatingActionButton(
+                onPressed: () {},
+                heroTag: null,
+                child: const Text(
+                  "LIVE",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _toggleBlur,
-        child: Text(
-          _isBlurred ? "Close" : "Open Menu",
-          textAlign: TextAlign.center,
-        ),
       ),
     );
   }
