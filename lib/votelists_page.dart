@@ -14,10 +14,9 @@ class VotelistsPage extends StatefulWidget {
 }
 
 class _VotelistsPageState extends State<VotelistsPage> {
-  // Vincent-voteList-updated
   List<Widget> buttons = [];
 
-  void addNewButton() {
+  void addNewButton(String name) {
     setState(() {
       buttons.add(
         Padding(
@@ -27,14 +26,13 @@ class _VotelistsPageState extends State<VotelistsPage> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const VotingPage()));
             },
-            child: const Text("New Playlist"),
+            child: Text(name),
           ),
         ),
       );
     });
   }
 
-  // eric-votelist-dialog
   bool _isBlurred = false;
 
   void _toggleBlur() {
@@ -43,10 +41,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
     });
   }
 
-  // TODO give this popup an text input and submit button and have a form that
-  //  retrieves the value in the text input.
-
-  void _showCreatePopup(BuildContext context) {
+  void _showCreatePopup(BuildContext context) async {
     final myController = TextEditingController();
 
     inputField() {
@@ -60,22 +55,16 @@ class _VotelistsPageState extends State<VotelistsPage> {
         // When the user presses the button, show an alert dialog containing
         // the text that the user has entered into the text field.
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                // Retrieve the text that the user has entered by using the
-                // TextEditingController.
-                content: Text(myController.text),
-              );
-            },
-          );
+          Navigator.of(context).pop(myController.text);
+          myController.dispose();
         },
         child: const Text("Submit"),
       );
     }
 
-    showDialog(context: context, builder: (BuildContext context) {
+    final result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -107,10 +96,16 @@ class _VotelistsPageState extends State<VotelistsPage> {
         );
       },
     );
+
+    if (result != null) {
+      addNewButton(result);
+    }
+
+    _toggleBlur();
   }
 
-  void _showRegisterPopup(BuildContext context) {
-    showDialog(
+  void _showRegisterPopup(BuildContext context) async {
+    final result = await showDialog<String>(
       context: context,
       builder: (BuildContext context) {
         return Dialog(
@@ -126,13 +121,21 @@ class _VotelistsPageState extends State<VotelistsPage> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    log("Register popup button pressed!");
+                    log("Playlist 1 button pressed!");
+                    Navigator.of(context).pop("Playlist 1");
                   },
-                  child: const Text("Do another thing"),
+                  child: const Text("Playlist 1"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    log("Playlist 2 button pressed!");
+                    Navigator.of(context).pop("Playlist 2");
+                  },
+                  child: const Text("Playlist 2"),
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
                   },
                   child: const Text("Close"),
                 ),
@@ -142,6 +145,12 @@ class _VotelistsPageState extends State<VotelistsPage> {
         );
       },
     );
+
+    if (result != null) {
+      addNewButton(result);
+    }
+
+    _toggleBlur();
   }
 
   @override
@@ -161,11 +170,20 @@ class _VotelistsPageState extends State<VotelistsPage> {
               },
               child: Stack(
                 children: [
-                  Container(padding: const EdgeInsets.all(10), child: const BackButton()),
-                  const Center(
-                    child: Text(
-                      "Main Page Content",
-                      style: TextStyle(fontSize: 20),
+                  Container(
+                      padding: const EdgeInsets.all(10),
+                      child: const BackButton()),
+                  Center(
+                    child: Column(
+                      children: [
+                        const Text(
+                          "Main Page Content",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Column(
+                          children: buttons,
+                        )
+                      ],
                     ),
                   ),
                   if (_isBlurred)
@@ -176,34 +194,31 @@ class _VotelistsPageState extends State<VotelistsPage> {
                         )),
                   if (_isBlurred) ...[
                     Positioned(
-                        bottom: fabHeight + bottomPadding + 32.0,
-                        right: rightPadding + 16.0,
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: Column(
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    _showCreatePopup(context);
-                                    log("Create Votelist pressed");
-                                  },
-                                  child: const Text("Create Votelist")),
-                              const SizedBox(height: 10),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    _showRegisterPopup(context);
-                                    log("Register Votelist pressed");
-                                  },
-                                  child: const Text("Register Votelist")),
-                            ],
-                          ),
-                        )),
+                      bottom: fabHeight + bottomPadding + 32.0,
+                      right: rightPadding + 16.0,
+                      child: Column(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {
+                                _showCreatePopup(context);
+                                log("Create Votelist pressed");
+                              },
+                              child: const Text("Create Votelist")),
+                          const SizedBox(height: 10),
+                          ElevatedButton(
+                              onPressed: () {
+                                _showRegisterPopup(context);
+                                log("Register Votelist pressed");
+                              },
+                              child: const Text("Register Votelist")),
+                        ],
+                      ),
+                    ),
                   ],
                 ],
               )),
         ],
       ),
-
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleBlur,
         child: Text(
@@ -211,90 +226,6 @@ class _VotelistsPageState extends State<VotelistsPage> {
           textAlign: TextAlign.center,
         ),
       ),
-
-      // // Vincent-voteList-updated
-      // body : Center(
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       children: [
-      //         Text(
-      //           widget.title,
-      //           style: const TextStyle(fontSize: 30),
-      //         ),
-      //         const SizedBox(height: 20, width: 50,),
-      //         Column(
-      //           children: buttons,
-      //         ),
-      //         ElevatedButton(
-      //             onPressed: () {
-      //               Navigator.pop(
-      //                   context
-      //               );
-      //             },
-      //             child: const Text("go back")
-      //         ),
-      //       ],
-      //     )
-      //   ),
-      // floatingActionButton : FloatingActionButton(
-      //   onPressed: addNewButton,
-      //   child : const Text("+"),
-      //
-      //   // eric-votelist-dialog
-      // body: Stack(
-      //   children: [
-      //     GestureDetector(
-      //       onTap: () {
-      //         if (showCreationButtons) {
-      //           setState(() {
-      //             showCreationButtons = false;
-      //           });
-      //         }
-      //       },
-      //       child: Container(
-      //         color: Colors.transparent,
-      //       ),
-      //     ),
-      //     Center(
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         children: <Widget>[
-      //           Text(
-      //             widget.title,
-      //             style: const TextStyle(fontSize: 30),
-      //           ),
-      //           ElevatedButton(
-      //               onPressed: () { Navigator.pop(context); },
-      //               child: const Text("go back")
-      //           ),
-      //           ElevatedButton(
-      //               onPressed: toggleShowButtons,
-      //               child: Text(showCreationButtons ? "hide buttons" : "show buttons")
-      //           ),
-      //           if (showCreationButtons) ...[
-      //             GestureDetector(
-      //               onTap: (){},
-      //               child: Column(
-      //                 children: [
-      //                   const SizedBox(height: 10),  // Adds some space between buttons
-      //                   ElevatedButton(
-      //                     onPressed: () => _showRegisterPopup(context),
-      //                     child: const Text('Register Button'),
-      //                   ),
-      //                   const SizedBox(height: 10),
-      //                   ElevatedButton(
-      //                     onPressed: () => _showCreatePopup(context),
-      //                     child: const Text('Create Button'),
-      //                   ),
-      //                 ],
-      //               ),
-      //             ),
-      //           ],
-      //         ],
-      //       ),
-      //     ),
-      //   ],
     );
   }
 }
