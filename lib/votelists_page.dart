@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:spotify_polls/live_login_page.dart';
 import 'package:spotify_polls/voting_page.dart';
 
 class VotelistsPage extends StatefulWidget {
@@ -236,7 +237,11 @@ class _VotelistsPageState extends State<VotelistsPage> {
             child: Container(
               padding: const EdgeInsets.all(20),
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(
+                      builder: (context) => const LiveLoginPage()));
+                },
                 heroTag: null,
                 child: const Text(
                   "LIVE",
