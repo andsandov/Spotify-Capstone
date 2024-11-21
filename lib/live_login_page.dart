@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class LiveLoginPage extends StatefulWidget {
@@ -29,6 +31,7 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
       onPressed: () {
         if (myController.text == password) {
           myController.dispose();
+          log("correct password");
 
           // TODO change this to go the liveRoom page
           Navigator.pop(context);
