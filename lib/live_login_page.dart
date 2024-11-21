@@ -15,11 +15,12 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
   String password = "password";
 
   final myController = TextEditingController();
-
+  bool isWrong = false;
   inputField() {
-    return TextField(
+    return TextFormField(
       controller: myController,
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
+        errorText: isWrong ? "Wrong Password" : null,
         hintText: "Room Code",
       ),
     );
@@ -29,14 +30,20 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
     return FloatingActionButton(
       heroTag: null,
       onPressed: () {
+        log("submit button pressed");
+        log("input: ${myController.text}");
         if (myController.text == password) {
           myController.dispose();
           log("correct password");
-
-          // TODO change this to go the liveRoom page
+          // TODO change this to go the LiveRoom page
           Navigator.pop(context);
         }
-
+        else {
+          log("wrong password");
+          setState(() {
+            isWrong = true;
+          });
+        }
       },
       child: const Text("Submit"),
     );
