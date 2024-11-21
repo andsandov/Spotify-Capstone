@@ -56,12 +56,9 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
             displayInputFieldValueSubmit(),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const VotelistsPage()));
+                  Navigator.pop(context);
                 },
-                child: const Text('go to votelists page'))
+                child: const Text('back button'))
           ],
         ),
       ),
