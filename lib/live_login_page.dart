@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_polls/votelists_page.dart';
 
 class LiveLoginPage extends StatefulWidget {
   const LiveLoginPage({super.key, this.title = "Live Page"});
