@@ -26,6 +26,7 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
 
   displayInputFieldValueSubmit() {
     return FloatingActionButton(
+      heroTag: null,
       onPressed: () {
         if (myController.text == password) {
           myController.dispose();
@@ -52,6 +53,7 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
               style: const TextStyle(fontSize: 30),
             ),
             inputField(),
+            displayInputFieldValueSubmit(),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
