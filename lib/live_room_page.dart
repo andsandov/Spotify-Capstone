@@ -18,7 +18,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
     double screenWidth = MediaQuery.sizeOf(context).width;
     double screenHeight = MediaQuery.sizeOf(context).height;
 
-    final double aspectRatio = 2 / 3;
+    const double aspectRatio = 2 / 3;
 
     final maxHeight = screenHeight;
     final maxWidth = maxHeight * aspectRatio;
@@ -27,20 +27,18 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
     final containerHeight = containerWidth / aspectRatio;
 
     void togglePlayState() {
-      // dev.log("playState before: ${playState}");
       setState(() {
         playState = !playState;
       });
-      // dev.log("playState after: ${playState}");
     }
 
     ButtonStyle playerButtonStyle = ElevatedButton.styleFrom(
         padding: EdgeInsets.all(containerHeight * 0.01),
-        minimumSize: Size.square(1));
+        minimumSize: const Size.square(1));
 
     ButtonStyle queueButtonStyle = ElevatedButton.styleFrom(
         padding: EdgeInsets.all(containerHeight * 0.01),
-        minimumSize: Size.square(1),
+        minimumSize: const Size.square(1),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white);
 
