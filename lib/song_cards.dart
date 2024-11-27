@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
-class CardItem extends StatefulWidget {
+class SongCards extends StatefulWidget {
   final String playlistName;
 
-  const CardItem({
+  const SongCards({
     super.key,
     required this.playlistName,
   });
 
   @override
-  State<StatefulWidget> createState() => _CardItemState();
+  State<StatefulWidget> createState() => _SongCardsState();
 }
 
-class _CardItemState extends State<CardItem> {
+class _SongCardsState extends State<SongCards> {
   String name = "";
 
   @override
