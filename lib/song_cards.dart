@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 class SongCards extends StatefulWidget {
   const SongCards({
     super.key,
+    required this.songs,
   });
+
+  final List<String> songs;
 
   @override
   State<StatefulWidget> createState() => _SongCardsState();
