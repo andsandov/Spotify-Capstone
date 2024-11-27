@@ -22,38 +22,44 @@ class _SongCardsState extends State<SongCards> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        // Stack container
         SizedBox(
-            width: boxWidth,
-            height: (5 * overlapOffset) + boxHeight,
-            child: Stack(
-              children: [
-                for (int i = 0; i < widget.songs.length; i++)
-                  Positioned(
-                    bottom: (i * 20), // Controls vertical offset
-                    child: Container(
-                      width: boxWidth,
-                      height: boxHeight,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Color.lerp(
-                            Colors.blue[300],
-                            Colors.blue[900],
-                            i / widget.songs.length),
-                        borderRadius: BorderRadius.circular(40.0),
+          width: boxWidth,
+          height: (5 * overlapOffset) + boxHeight,
+          child: Stack(// Allow overflow for stack positioning
+            children: [
+              // Render boxes in the correct order for z-axis layering
+              for (int i = widget.songs.length - 1; i >= 0; i--)
+                Positioned(
+                  // The first item will appear in front and others will be behind
+                  bottom: (i * 20), // Controls vertical offset
+                  child: Container(
+                    width: boxWidth,
+                    height: boxHeight,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Color.lerp(
+                        Colors.blue[300]!,  // Brightest color (for the oldest box)
+                        Colors.blue[900]!,  // Darkest color (for the newest box)
+                        i / (widget.songs.length),  // Adjust interpolation
                       ),
-                      child: Text(
-                        "box 1",
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    child: Text(
+                      widget.songs[i],
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
-              ],
-            )),
+                  ),
+                ),
+            ],
+          ),
+        ),
       ],
     );
+
   }
 }
