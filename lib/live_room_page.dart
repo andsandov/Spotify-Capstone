@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_polls/song_cards.dart';
 
 class LiveRoomPage extends StatefulWidget {
   const LiveRoomPage({super.key, this.title = "Live Room Page"});
@@ -46,12 +47,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            width: containerWidth * 0.7,
-            height: containerHeight * 0.7,
-            color: Colors.indigoAccent,
-            margin: EdgeInsets.only(bottom: containerHeight * 0.05),
-          ),
+          SongCards(songs: []),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
