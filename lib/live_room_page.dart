@@ -11,7 +11,7 @@ class LiveRoomPage extends StatefulWidget {
 }
 
 class _LiveRoomPageState extends State<LiveRoomPage> {
-
+  List<String> songs = ["box 1", "box 2", "box 3"];
   bool playState = false;
 
   @override
@@ -43,11 +43,19 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white);
 
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SongCards(songs: ["box 1", "box 2", "box 3"]),
+          SongCards(
+              songs: songs,
+            onAdd: () {
+                setState(() {
+                  songs.add("Another Box");
+                });
+            },
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

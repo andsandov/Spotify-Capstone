@@ -5,15 +5,18 @@ class SongCards extends StatefulWidget {
   const SongCards({
     super.key,
     required this.songs,
+    required this.onAdd,
   });
 
   final List<String> songs;
+  final VoidCallback onAdd;
 
   @override
   State<StatefulWidget> createState() => _SongCardsState();
 }
 
 class _SongCardsState extends State<SongCards> {
+
   @override
   Widget build(BuildContext context) {
     const double boxWidth = 600;
@@ -57,6 +60,12 @@ class _SongCardsState extends State<SongCards> {
                 ),
             ],
           ),
+        ),
+        const SizedBox(height: 20), // Spacing between the stack and the button
+        // Add Box button
+        ElevatedButton(
+          onPressed: widget.onAdd,
+          child: const Text("Add Box"),
         ),
       ],
     );
