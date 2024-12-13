@@ -10,7 +10,6 @@ class LiveRoomPage extends StatefulWidget {
 }
 
 class _LiveRoomPageState extends State<LiveRoomPage> {
-  List<String> songs = ["box 1", "box 2", "box 3"];
   bool playState = false;
 
   @override
