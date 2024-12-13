@@ -48,13 +48,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SongCards(
-              songs: songs,
-            onAdd: () {
-                setState(() {
-                  songs.add("Another Box");
-                });
-            },
+          Container(
+            child: Text("Container for Song cards"),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
