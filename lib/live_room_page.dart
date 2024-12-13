@@ -10,7 +10,6 @@ class LiveRoomPage extends StatefulWidget {
 }
 
 class _LiveRoomPageState extends State<LiveRoomPage> {
-
   bool playState = false;
 
   @override
@@ -42,15 +41,13 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white);
 
+
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: containerWidth * 0.7,
-            height: containerHeight * 0.7,
-            color: Colors.indigoAccent,
-            margin: EdgeInsets.only(bottom: containerHeight * 0.05),
+            child: Text("Container for Song cards"),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
