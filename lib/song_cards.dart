@@ -1,22 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SongCards extends StatefulWidget {
-  const SongCards({
+class SongCardList extends StatefulWidget {
+  const SongCardList({
     super.key,
-    required this.songs,
+    required this.songCards,
     required this.onAdd,
   });
 
-  final List<String> songs;
+  final List<SongCard> songCards;
   final VoidCallback onAdd;
 
   @override
-  State<StatefulWidget> createState() => _SongCardsState();
+  State<StatefulWidget> createState() => _SongCardListState();
 }
 
-class _SongCardsState extends State<SongCards> {
-
+class _SongCardListState extends State<SongCardList> {
   @override
   Widget build(BuildContext context) {
     const double boxWidth = 600;
@@ -24,53 +22,79 @@ class _SongCardsState extends State<SongCards> {
     const double overlapOffset = 20; // Vertical spacing for the stack
     const int displayListMax = 5;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Stack container
-        SizedBox(
-          width: boxWidth,
-          height: (5 * overlapOffset) + boxHeight,
-          child: Stack(// Allow overflow for stack positioning
-            children: [
-              // Render boxes in the correct order for z-axis layering
-              for (int i = (widget.songs.length > displayListMax ? displayListMax : widget.songs.length) - 1; i >= 0; i--)
-                Positioned(
-                  // The first item will appear in front and others will be behind
-                  bottom: (i * 20), // Controls vertical offset
-                  child: Container(
-                    width: boxWidth,
-                    height: boxHeight,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Color.lerp(
-                        Colors.blue[300]!,  // Brightest color (for the oldest box)
-                        Colors.blue[900]!,  // Darkest color (for the newest box)
-                        i / (displayListMax - 1),  // Adjust interpolation
-                      ),
-                      borderRadius: BorderRadius.circular(50.0),
-                    ),
-                    child: Text(
-                      widget.songs[i],
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 20), // Spacing between the stack and the button
-        // Add Box button
-        ElevatedButton(
-          onPressed: widget.onAdd,
-          child: const Text("Add Box"),
-        ),
-      ],
-    );
+    final displayCards = widget.songCards.take(displayListMax).toList();
 
+    return SizedBox(
+      width: boxWidth,
+      height: boxHeight,
+      child: Stack(
+        children: [
+          for (int i = displayCards.length - 1; i >= 0; i--)
+            Positioned(
+              bottom: i * overlapOffset,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color:
+                      Colors.black.withOpacity(i * 0.2), // Darken progressively
+                  // borderRadius: BorderRadius.circular(8),
+                ),
+                child: displayCards[displayCards.length - 1 - i],
+              ),
+            ),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: ElevatedButton(
+              onPressed: widget.onAdd,
+              child: const Text("Add Song"),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SongCard extends StatefulWidget {
+  const SongCard({
+    super.key,
+    required this.songName,
+    required this.trackArt,
+    required this.artistName,
+  });
+
+  final String songName;
+  final String artistName;
+  final Image trackArt;
+
+  @override
+  State<StatefulWidget> createState() => _SongCardState();
+}
+
+class _SongCardState extends State<SongCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(8),
+      elevation: 4,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          widget.trackArt,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.songName, style: const TextStyle(fontSize: 16)),
+                Text(widget.artistName, style: const TextStyle(fontSize: 14)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

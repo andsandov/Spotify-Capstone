@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_polls/song_cards.dart';
 
 class LiveRoomPage extends StatefulWidget {
   const LiveRoomPage({super.key, this.title = "Live Room Page"});
@@ -11,6 +12,18 @@ class LiveRoomPage extends StatefulWidget {
 
 class _LiveRoomPageState extends State<LiveRoomPage> {
   bool playState = false;
+
+  final List<SongCard> _songCards = [];
+
+  void _addSong() {
+    setState(() {
+      _songCards.insert(0, SongCard(
+        songName: "Song ${_songCards.length + 1}",
+        artistName: "Artist ${_songCards.length + 1}",
+        trackArt: Image.network('assets/trackArtPlaceholder.png'), // Placeholder art
+      ));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +54,6 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white);
 
-
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -49,6 +61,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
           Container(
             child: Text("Container for Song cards"),
           ),
+          SongCardList(songCards: _songCards, onAdd: _addSong),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
