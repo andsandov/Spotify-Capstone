@@ -15,13 +15,36 @@ class SongCardList extends StatefulWidget {
 }
 
 class _SongCardListState extends State<SongCardList> {
+  List<SongCard> cards = [];
+  final double maxElevation = 10.0; // The greatest elevation value
+
+  final double boxWidth = 600;
+  final double boxHeight = 700;
+  final double overlapOffset = 20; // Vertical spacing for the stack
+  final int displayListMax = 5;
+
+  void addCard() {
+    setState(() {
+      cards.add(SongCard(
+          songName: "Song ${cards.length + 1}",
+          artistName: "Artist ${cards.length + 1}",
+          trackArt: Image.network('assets/trackArtPlaceholder.png'),
+      ));
+    });
+  }
+
+  void removeCard(int index) {
+    setState(() {
+      cards.removeAt(index);
+    });
+  }
+
+  double computeElevation(int index) {
+    return maxElevation - index.toDouble();
+  }
+
   @override
   Widget build(BuildContext context) {
-    const double boxWidth = 600;
-    const double boxHeight = 700;
-    const double overlapOffset = 20; // Vertical spacing for the stack
-    const int displayListMax = 5;
-
     final displayCards = widget.songCards.take(displayListMax).toList();
 
     return SizedBox(
@@ -34,13 +57,32 @@ class _SongCardListState extends State<SongCardList> {
               bottom: i * overlapOffset,
               left: 0,
               right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  color:
-                      Colors.black.withOpacity(i * 0.2), // Darken progressively
-                  // borderRadius: BorderRadius.circular(8),
+              child: Card(
+                margin: const EdgeInsets.all(8),
+                elevation: computeElevation(i),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    displayCards[displayCards.length - 1 - i].trackArt,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            displayCards[displayCards.length - 1 - i].songName,
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                          Text(
+                            displayCards[displayCards.length - 1 - i]
+                                .artistName,
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                child: displayCards[displayCards.length - 1 - i],
               ),
             ),
           Positioned(
@@ -57,9 +99,8 @@ class _SongCardListState extends State<SongCardList> {
   }
 }
 
-class SongCard extends StatefulWidget {
+class SongCard {
   const SongCard({
-    super.key,
     required this.songName,
     required this.trackArt,
     required this.artistName,
@@ -68,33 +109,4 @@ class SongCard extends StatefulWidget {
   final String songName;
   final String artistName;
   final Image trackArt;
-
-  @override
-  State<StatefulWidget> createState() => _SongCardState();
-}
-
-class _SongCardState extends State<SongCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8),
-      elevation: 4,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          widget.trackArt,
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(widget.songName, style: const TextStyle(fontSize: 16)),
-                Text(widget.artistName, style: const TextStyle(fontSize: 14)),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }
