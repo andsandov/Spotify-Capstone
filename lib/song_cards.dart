@@ -45,11 +45,22 @@ class _SongCardListState extends State<SongCardList> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double screenHeight = MediaQuery.sizeOf(context).height;
+
+    const double aspectRatio = 2 / 3;
+
+    final maxHeight = screenHeight;
+    final maxWidth = maxHeight * aspectRatio;
+
+    final containerWidth = maxWidth > screenWidth ? screenWidth : maxWidth;
+    final containerHeight = containerWidth / aspectRatio;
+
     final displayCards = widget.songCards.take(displayListMax).toList();
 
     return SizedBox(
-      width: boxWidth,
-      height: boxHeight,
+      width: containerWidth * 0.5,
+      height: containerHeight * 0.4,
       child: Stack(
         children: [
           for (int i = displayCards.length - 1; i >= 0; i--)
