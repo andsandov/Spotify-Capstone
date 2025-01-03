@@ -75,8 +75,7 @@ class _SongCardListState extends State<SongCardList> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.15 * i), // Tint color with opacity
-                    borderRadius: BorderRadius.circular(
-                        4.0), // Match card's border radius
+                    borderRadius: BorderRadius.circular(11.0), // Match card's border radius
                   ),
                   child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
