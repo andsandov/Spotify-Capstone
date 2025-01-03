@@ -7,7 +7,7 @@ class SongCardList extends StatefulWidget {
     required this.onAdd,
   });
 
-  final List<SongCard> songCards;
+  final List<SongCardData> songCards;
   final VoidCallback onAdd;
 
   @override
@@ -15,7 +15,7 @@ class SongCardList extends StatefulWidget {
 }
 
 class _SongCardListState extends State<SongCardList> {
-  List<SongCard> cards = [];
+  List<SongCardData> cards = [];
   final double maxElevation = 10.0; // The greatest elevation value
 
   final double boxWidth = 600;
@@ -24,7 +24,7 @@ class _SongCardListState extends State<SongCardList> {
 
   void addCard() {
     setState(() {
-      cards.add(SongCard(
+      cards.add(SongCardData(
         songName: "Song ${cards.length + 1}",
         artistName: "Artist ${cards.length + 1}",
         trackArt: Image.network('assets/trackArtPlaceholder.png'),
@@ -74,12 +74,15 @@ class _SongCardListState extends State<SongCardList> {
                 elevation: 0.0,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.15 * i), // Tint color with opacity
-                    borderRadius: BorderRadius.circular(11.0), // Match card's border radius
+                    color: Colors.black
+                        .withOpacity(0.15 * i), // Tint color with opacity
+                    borderRadius: BorderRadius.circular(
+                        11.0), // Match card's border radius
                   ),
                   child: ColorFiltered(
                     colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(0.15 * i), // Tint color for contents
+                      Colors.black
+                          .withOpacity(0.15 * i), // Tint color for contents
                       BlendMode.srcATop, // Blend mode for tinting
                     ),
                     child: Column(
@@ -129,8 +132,68 @@ class _SongCardListState extends State<SongCardList> {
   }
 }
 
-class SongCard {
-  const SongCard({
+class SongCard extends StatefulWidget {
+  const SongCard({required this.cardData});
+  final SongCardData cardData;
+
+  @override
+  State<StatefulWidget> createState() => _SongCardState();
+}
+
+class _SongCardState extends State<SongCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(containerWidth * 0.01),
+      elevation: 0.0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black
+              .withOpacity(0.15 * i), // Tint color with opacity
+          borderRadius: BorderRadius.circular(
+              11.0), // Match card's border radius
+        ),
+        child: ColorFiltered(
+          colorFilter: ColorFilter.mode(
+            Colors.black
+                .withOpacity(0.15 * i), // Tint color for contents
+            BlendMode.srcATop, // Blend mode for tinting
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(containerWidth *
+                    0.01), // Adjust the padding value as needed
+                child: widget.cardData.trackArt,
+              ),
+              Padding(
+                padding: EdgeInsets.all(containerHeight * 0.01),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.cardData.songName,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      widget.cardData.artistName,
+                      style: const TextStyle(fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+}
+
+class SongCardData {
+  const SongCardData({
     required this.songName,
     required this.trackArt,
     required this.artistName,
