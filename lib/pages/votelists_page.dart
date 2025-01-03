@@ -2,8 +2,8 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:spotify_polls/live_login_page.dart';
-import 'package:spotify_polls/voting_page.dart';
+import 'package:spotify_polls/pages/live_login_page.dart';
+import 'package:spotify_polls/pages/voting_page.dart';
 
 class VotelistsPage extends StatefulWidget {
   const VotelistsPage({super.key, this.title = "Votelists Page"});
