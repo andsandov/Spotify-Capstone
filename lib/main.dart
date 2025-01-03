@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_polls/login_page.dart';
+import 'package:spotify_polls/pages/login_page.dart';
 
 void main() {
   runApp(const MyApp());
