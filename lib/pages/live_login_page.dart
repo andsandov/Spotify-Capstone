@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:spotify_polls/live_room_page.dart';
+import 'package:spotify_polls/pages/live_room_page.dart';
 
 class LiveLoginPage extends StatefulWidget {
   const LiveLoginPage({super.key, this.title = "Live Page"});
