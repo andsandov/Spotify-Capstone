@@ -69,54 +69,7 @@ class _SongCardListState extends State<SongCardList> {
               bottom: i * overlapOffset - (i * i * containerHeight * 0.005),
               left: 0,
               right: 0,
-              child: Card(
-                margin: EdgeInsets.all(containerWidth * 0.01),
-                elevation: 0.0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black
-                        .withOpacity(0.15 * i), // Tint color with opacity
-                    borderRadius: BorderRadius.circular(
-                        11.0), // Match card's border radius
-                  ),
-                  child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      Colors.black
-                          .withOpacity(0.15 * i), // Tint color for contents
-                      BlendMode.srcATop, // Blend mode for tinting
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(containerWidth *
-                              0.01), // Adjust the padding value as needed
-                          child: displayCards[displayCards.length - 1 - i]
-                              .trackArt,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(containerHeight * 0.01),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                displayCards[displayCards.length - 1 - i]
-                                    .songName,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              Text(
-                                displayCards[displayCards.length - 1 - i]
-                                    .artistName,
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
+              child: SongCard(cardData: displayCards[displayCards.length - 1 - i], index: i)
             ),
           Positioned(
             bottom: containerHeight * 0.01,
@@ -133,7 +86,12 @@ class _SongCardListState extends State<SongCardList> {
 }
 
 class SongCard extends StatefulWidget {
-  const SongCard({required this.cardData});
+  const SongCard({
+    required this.cardData,
+    required this.index
+  });
+
+  final int index;
   final SongCardData cardData;
 
   @override
@@ -143,20 +101,31 @@ class SongCard extends StatefulWidget {
 class _SongCardState extends State<SongCard> {
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double screenHeight = MediaQuery.sizeOf(context).height;
+
+    const double aspectRatio = 2 / 3;
+
+    final maxHeight = screenHeight;
+    final maxWidth = maxHeight * aspectRatio;
+
+    final containerWidth = maxWidth > screenWidth ? screenWidth : maxWidth;
+    final containerHeight = containerWidth / aspectRatio;
+
     return Card(
       margin: EdgeInsets.all(containerWidth * 0.01),
       elevation: 0.0,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.black
-              .withOpacity(0.15 * i), // Tint color with opacity
+              .withOpacity(0.15 * widget.index), // Tint color with opacity
           borderRadius: BorderRadius.circular(
               11.0), // Match card's border radius
         ),
         child: ColorFiltered(
           colorFilter: ColorFilter.mode(
             Colors.black
-                .withOpacity(0.15 * i), // Tint color for contents
+                .withOpacity(0.15 * widget.index), // Tint color for contents
             BlendMode.srcATop, // Blend mode for tinting
           ),
           child: Column(
