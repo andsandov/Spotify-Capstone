@@ -32,52 +32,63 @@ class _SongCardListState extends State<SongCardList> {
 
     final double overlapOffset = containerHeight * 0.05;
 
-    final displayCards = widget.songCards.take(displayListMax).toList();
+    final start = widget.songCards.length > displayListMax ? widget.songCards.length - displayListMax : 0;
+    final displayCards = widget.songCards.skip(start).take(displayListMax).toList();
 
-    return SizedBox(
-      width: containerWidth * 0.6,
-      height: containerHeight * 0.6,
-      child: Stack(
-          children: [
-            for (int i = displayCards.length - 1; i >= 0; i--)
-              Positioned(
-                  bottom: i * overlapOffset - (i * i * containerHeight * 0.005),
-                  left: 0,
-                  right: 0,
-                  child: Builder(builder: (context) {
-                    if ((displayCards.length - 1 - i) == displayCards.length - 1) {
-                      return Draggable(
-                        data: displayCards.length - 1 - i,
-                        feedback: ConstrainedBox(
-                          constraints: BoxConstraints.tightFor(
-                            width: containerWidth * 0.6, // Set the same width as the child
-                            height: containerHeight * 0.45, // Set the same height as the child
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: containerWidth * 0.6,
+          height: containerHeight * 0.6,
+          child:
+          Stack(
+            children: [
+              for (int i = displayCards.length - 1; i >= 0; i--)
+                Positioned(
+                    bottom:
+                        i * overlapOffset - (i * i * containerHeight * 0.005),
+                    left: 0,
+                    right: 0,
+                    child: Builder(builder: (context) {
+                      if ((displayCards.length - 1 - i) ==
+                          displayCards.length - 1) {
+                        return Draggable(
+                          data: displayCards.length - 1 - i,
+                          feedback: ConstrainedBox(
+                            constraints: BoxConstraints.tightFor(
+                              width: containerWidth *
+                                  0.6, // Set the same width as the child
+                              height: containerHeight *
+                                  0.45, // Set the same height as the child
+                            ),
+                            child: SongCard(
+                                cardData:
+                                    displayCards[displayCards.length - 1 - i],
+                                index: i),
                           ),
+                          childWhenDragging: const SizedBox.shrink(),
                           child: SongCard(
-                              cardData: displayCards[displayCards.length - 1 - i],
+                              cardData:
+                                  displayCards[displayCards.length - 1 - i],
                               index: i),
-                        ),
-                        childWhenDragging: const SizedBox.shrink(),
-                        child: SongCard(
-                            cardData: displayCards[displayCards.length - 1 - i],
-                            index: i),
-                      );
-                    }
-                    return SongCard(
-                        cardData: displayCards[displayCards.length - 1 - i],
-                        index: i);
-                  })
-              ),
-            Positioned(
-              bottom: containerHeight * 0.01,
-              right: containerWidth * 0.2,
-              child: ElevatedButton(
-                onPressed: widget.onAdd,
-                child: Text("Add Song", style: TextStyle(fontSize: containerWidth * 0.03)),
-              ),
-            ),
-          ],
+                        );
+                      }
+                      return SongCard(
+                          cardData: displayCards[displayCards.length - 1 - i],
+                          index: i);
+                    })),
+            ],
+          ),
         ),
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ElevatedButton(
+            onPressed: widget.onAdd,
+            child: Text("Add Song",
+                style: TextStyle(fontSize: containerWidth * 0.03)),
+          ),
+        ]),
+      ],
     );
   }
 }
