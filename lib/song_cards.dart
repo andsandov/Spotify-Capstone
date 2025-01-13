@@ -66,11 +66,12 @@ class _SongCardListState extends State<SongCardList> {
         children: [
           for (int i = displayCards.length - 1; i >= 0; i--)
             Positioned(
-              bottom: i * overlapOffset - (i * i * containerHeight * 0.005),
-              left: 0,
-              right: 0,
-              child: SongCard(cardData: displayCards[displayCards.length - 1 - i], index: i)
-            ),
+                bottom: i * overlapOffset - (i * i * containerHeight * 0.005),
+                left: 0,
+                right: 0,
+                child: SongCard(
+                    cardData: displayCards[displayCards.length - 1 - i],
+                    index: i)),
           Positioned(
             bottom: containerHeight * 0.01,
             right: containerWidth * 0.2,
@@ -86,10 +87,7 @@ class _SongCardListState extends State<SongCardList> {
 }
 
 class SongCard extends StatefulWidget {
-  const SongCard({
-    required this.cardData,
-    required this.index
-  });
+  const SongCard({super.key, required this.cardData, required this.index});
 
   final int index;
   final SongCardData cardData;
@@ -112,15 +110,15 @@ class _SongCardState extends State<SongCard> {
     final containerWidth = maxWidth > screenWidth ? screenWidth : maxWidth;
     final containerHeight = containerWidth / aspectRatio;
 
-    return Card(
+    var songCard = Card(
       margin: EdgeInsets.all(containerWidth * 0.01),
       elevation: 0.0,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.black
               .withOpacity(0.15 * widget.index), // Tint color with opacity
-          borderRadius: BorderRadius.circular(
-              11.0), // Match card's border radius
+          borderRadius:
+              BorderRadius.circular(11.0), // Match card's border radius
         ),
         child: ColorFiltered(
           colorFilter: ColorFilter.mode(
@@ -157,8 +155,19 @@ class _SongCardState extends State<SongCard> {
         ),
       ),
     );
-  }
 
+    return Draggable(
+        feedback: ConstrainedBox(
+          constraints: BoxConstraints.tightFor(
+            width: containerWidth * 0.6, // Set the same width as the child
+            height: containerHeight * 0.45, // Set the same height as the child
+          ),
+          child: songCard,
+        ),
+        childWhenDragging: const SizedBox.shrink(),
+        child: songCard,
+    );
+  }
 }
 
 class SongCardData {
