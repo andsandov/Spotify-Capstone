@@ -15,32 +15,7 @@ class SongCardList extends StatefulWidget {
 }
 
 class _SongCardListState extends State<SongCardList> {
-  List<SongCardData> cards = [];
-  final double maxElevation = 10.0; // The greatest elevation value
-
-  final double boxWidth = 600;
-  final double boxHeight = 700;
   final int displayListMax = 5;
-
-  void addCard() {
-    setState(() {
-      cards.add(SongCardData(
-        songName: "Song ${cards.length + 1}",
-        artistName: "Artist ${cards.length + 1}",
-        trackArt: Image.network('assets/trackArtPlaceholder.png'),
-      ));
-    });
-  }
-
-  void removeCard(int index) {
-    setState(() {
-      cards.removeAt(index);
-    });
-  }
-
-  double computeElevation(int index) {
-    return maxElevation - index.toDouble();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,25 +38,46 @@ class _SongCardListState extends State<SongCardList> {
       width: containerWidth * 0.6,
       height: containerHeight * 0.6,
       child: Stack(
-        children: [
-          for (int i = displayCards.length - 1; i >= 0; i--)
+          children: [
+            for (int i = displayCards.length - 1; i >= 0; i--)
+              Positioned(
+                  bottom: i * overlapOffset - (i * i * containerHeight * 0.005),
+                  left: 0,
+                  right: 0,
+                  child: Builder(builder: (context) {
+                    if ((displayCards.length - 1 - i) == displayCards.length - 1) {
+                      return Draggable(
+                        data: displayCards.length - 1 - i,
+                        feedback: ConstrainedBox(
+                          constraints: BoxConstraints.tightFor(
+                            width: containerWidth * 0.6, // Set the same width as the child
+                            height: containerHeight * 0.45, // Set the same height as the child
+                          ),
+                          child: SongCard(
+                              cardData: displayCards[displayCards.length - 1 - i],
+                              index: i),
+                        ),
+                        childWhenDragging: const SizedBox.shrink(),
+                        child: SongCard(
+                            cardData: displayCards[displayCards.length - 1 - i],
+                            index: i),
+                      );
+                    }
+                    return SongCard(
+                        cardData: displayCards[displayCards.length - 1 - i],
+                        index: i);
+                  })
+              ),
             Positioned(
-                bottom: i * overlapOffset - (i * i * containerHeight * 0.005),
-                left: 0,
-                right: 0,
-                child: SongCard(
-                    cardData: displayCards[displayCards.length - 1 - i],
-                    index: i)),
-          Positioned(
-            bottom: containerHeight * 0.01,
-            right: containerWidth * 0.2,
-            child: ElevatedButton(
-              onPressed: widget.onAdd,
-              child: const Text("Add Song"),
+              bottom: containerHeight * 0.01,
+              right: containerWidth * 0.2,
+              child: ElevatedButton(
+                onPressed: widget.onAdd,
+                child: Text("Add Song", style: TextStyle(fontSize: containerWidth * 0.03)),
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
     );
   }
 }
@@ -141,11 +137,11 @@ class _SongCardState extends State<SongCard> {
                   children: [
                     Text(
                       widget.cardData.songName,
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(fontSize: containerWidth * 0.03),
                     ),
                     Text(
                       widget.cardData.artistName,
-                      style: const TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: containerWidth * 0.03),
                     ),
                   ],
                 ),
@@ -156,17 +152,7 @@ class _SongCardState extends State<SongCard> {
       ),
     );
 
-    return Draggable(
-        feedback: ConstrainedBox(
-          constraints: BoxConstraints.tightFor(
-            width: containerWidth * 0.6, // Set the same width as the child
-            height: containerHeight * 0.45, // Set the same height as the child
-          ),
-          child: songCard,
-        ),
-        childWhenDragging: const SizedBox.shrink(),
-        child: songCard,
-    );
+    return songCard;
   }
 }
 
