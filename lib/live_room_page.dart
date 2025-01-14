@@ -17,11 +17,14 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
 
   void _addSong() {
     setState(() {
-      _songCards.insert(0, SongCardData(
-        songName: "Song ${_songCards.length + 1}",
-        artistName: "Artist ${_songCards.length + 1}",
-        trackArt: Image.network('assets/trackArtPlaceholder.png'), // Placeholder art
-      ));
+      _songCards.insert(
+          0,
+          SongCardData(
+            songName: "Song ${_songCards.length + 1}",
+            artistName: "Artist ${_songCards.length + 1}",
+            trackArt: Image.network(
+                'assets/trackArtPlaceholder.png'), // Placeholder art
+          ));
     });
   }
 
@@ -58,11 +61,65 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SongCardList(songCards: _songCards, onAdd: _addSong),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DragTarget<int>(
+                builder: (context, candidateData, rejectedData) {
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    color: candidateData.isNotEmpty ? Colors.green : Colors.red,
+                    child: Center(
+                      child: Text(
+                        candidateData.isNotEmpty
+                            ? 'Hovering: ${candidateData.first}' // Access the first item in the list
+                            : 'Drag an item here!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
+                onWillAcceptWithDetails: (data) {
+                  print('Will accept: $data');
+                  return true; // Indicate whether to accept the draggable item
+                },
+                onAcceptWithDetails: (data) {
+                  print('Accepted: $data');
+                },
+              ),
+              SongCardList(songCards: _songCards, onAdd: _addSong),
+              DragTarget<int>(
+                builder: (context, candidateData, rejectedData) {
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    color: candidateData.isNotEmpty ? Colors.green : Colors.red,
+                    child: Center(
+                      child: Text(
+                        candidateData.isNotEmpty
+                            ? 'Hovering: ${candidateData.first}' // Access the first item in the list
+                            : 'Drag an item here!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
+                onWillAcceptWithDetails: (data) {
+                  print('Will accept: $data');
+                  return true; // Indicate whether to accept the draggable item
+                },
+                onAcceptWithDetails: (data) {
+                  print('Accepted: $data');
+                },
+              ),
+            ],
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(                  // Temporary Card container
+              Container(
+                // Temporary Card container
                 padding: EdgeInsets.symmetric(vertical: containerHeight * 0.01),
                 margin: EdgeInsets.fromLTRB(
                     (screenWidth * 0.5) - ((containerWidth * 0.7) / 2),
@@ -75,7 +132,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                   color: Colors.indigoAccent,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(                         // Control bar
+                child: Row(
+                  // Control bar
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
@@ -86,7 +144,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                     ElevatedButton(
                       style: playerButtonStyle,
                       onPressed: togglePlayState,
-                      child: Icon(playState ? Icons.pause : Icons.play_arrow, size: containerHeight * 0.06),
+                      child: Icon(playState ? Icons.pause : Icons.play_arrow,
+                          size: containerHeight * 0.06),
                     ),
                     ElevatedButton(
                         style: playerButtonStyle,
