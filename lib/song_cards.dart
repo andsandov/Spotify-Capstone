@@ -55,7 +55,7 @@ class _SongCardListState extends State<SongCardList> {
                       if ((displayCards.length - 1 - i) ==
                           displayCards.length - 1) {
                         return Draggable(
-                          data: displayCards.length - 1 - i,
+                          data: (displayCards.length - 1) - i,
                           feedback: ConstrainedBox(
                             constraints: BoxConstraints.tightFor(
                               width: containerWidth *
