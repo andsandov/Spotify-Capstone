@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_polls/login_page.dart';
 import 'package:provider/provider.dart';
-import 'package:spotify_polls/providers/screen_size_provider.dart';
+import 'package:spotify_polls/providers/shortest_side_scaler.dart';
 
 void main() {
-  runApp(
-      ChangeNotifierProvider(
-        create: (context) => ScreenSizeProvider(),
-        child: const MyApp(),
-      ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
