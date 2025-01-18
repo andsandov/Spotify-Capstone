@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ShortestSideScaler {
+class ScreenScaler {
   static late double _shortestSide;
 
   static void init(BuildContext context) {
