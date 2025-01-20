@@ -118,7 +118,7 @@ class _SongCardState extends State<SongCard> {
     final containerWidth = maxWidth > screenWidth ? screenWidth : maxWidth;
     final containerHeight = containerWidth / aspectRatio;
 
-    var songCard = Card(
+    return Card(
       margin: EdgeInsets.all(containerWidth * 0.01),
       elevation: 0.0,
       child: Container(
@@ -126,7 +126,7 @@ class _SongCardState extends State<SongCard> {
           color: Colors.black
               .withOpacity(0.15 * widget.index), // Tint color with opacity
           borderRadius:
-              BorderRadius.circular(11.0), // Match card's border radius
+          BorderRadius.circular(11.0), // Match card's border radius
         ),
         child: ColorFiltered(
           colorFilter: ColorFilter.mode(
@@ -163,8 +163,6 @@ class _SongCardState extends State<SongCard> {
         ),
       ),
     );
-
-    return songCard;
   }
 }
 
