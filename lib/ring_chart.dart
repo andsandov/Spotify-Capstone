@@ -42,7 +42,7 @@ class RingChartPainter extends CustomPainter {
       final paint = Paint()
         ..color = Colors.grey
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 40;
+        ..strokeWidth = (size.width * size.width) * 0.002;
       final center = Offset(size.width / 2, size.height / 2);
       final radius = min(size.width / 2, size.height / 2) - 20;
 
@@ -54,7 +54,7 @@ class RingChartPainter extends CustomPainter {
     double startAngle = -pi / 2;
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 40; // Defines ring thickness
+      ..strokeWidth = (size.width * size.width) * 0.002; // Defines ring thickness
 
     final center = Offset(size.width / 2, size.height / 2);
     final radius = min(size.width / 2, size.height / 2) - 20;
