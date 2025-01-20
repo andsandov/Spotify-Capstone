@@ -171,11 +171,13 @@ class _SongCardState extends State<SongCard> {
 class SongCardData {
   const SongCardData({
     required this.songName,
-    required this.trackArt,
     required this.artistName,
+    required this.trackArt,
+    required this.votes,
   });
 
   final String songName;
   final String artistName;
   final Image trackArt;
+  final List<double> votes;
 }
