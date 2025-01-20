@@ -140,7 +140,22 @@ class _SongCardState extends State<SongCard> {
               Padding(
                 padding: EdgeInsets.all(containerWidth *
                     0.01), // Adjust the padding value as needed
-                child: widget.cardData.trackArt,
+                child: Stack(
+                  children: [
+                    widget.cardData.trackArt,
+                    Positioned(
+                      top: 0, // Align to the top
+                      right: 0, // Align to the right
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: containerWidth * 0.16,
+                          maxHeight: containerWidth * 0.2,
+                        ),
+                        child: RingChart(votes: widget.cardData.votes),
+                      ),
+                    ),
+                  ],
+                )
               ),
               Padding(
                 padding: EdgeInsets.all(containerHeight * 0.01),
