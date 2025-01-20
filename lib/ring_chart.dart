@@ -15,15 +15,15 @@ class RingChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Custom Ring Chart')),
-        body: Column(children: [
-          CustomPaint(
-            size: const Size(200, 200),
-            painter: RingChartPainter(votes, colors),
-          ),
-          Text("votes: ${votes.reduce((a, b) => a + b)} "),
-        ]));
+    return Center(
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        CustomPaint(
+          size: const Size(70, 70),
+          painter: RingChartPainter(votes, colors),
+        ),
+        Text("votes: ${votes.reduce((a, b) => a + b)} "),
+      ]),
+    );
   }
 }
 
