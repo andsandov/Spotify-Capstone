@@ -23,7 +23,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
             songName: "Song ${_songCards.length + 1}",
             artistName: "Artist ${_songCards.length + 1}",
             trackArt: Image.network(
-                'assets/trackArtPlaceholder.png'), // Placeholder art
+                'assets/trackArtPlaceholder.png'),
+            votes: [0, 0],// Placeholder art
           ));
     });
   }
