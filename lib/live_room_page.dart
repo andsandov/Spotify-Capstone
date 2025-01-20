@@ -48,6 +48,13 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
       });
     }
 
+    void voteYes() {
+      _songCards[_songCards.length - 1].votes[0] += 1;
+    }
+    void voteNo() {
+      _songCards[_songCards.length - 1].votes[1] += 1;
+    }
+
     ButtonStyle playerButtonStyle = ElevatedButton.styleFrom(
         padding: EdgeInsets.all(containerHeight * 0.01),
         minimumSize: const Size.square(1));
@@ -86,6 +93,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                   return true; // Indicate whether to accept the draggable item
                 },
                 onAcceptWithDetails: (data) {
+                  voteYes();
                   print('Accepted: $data');
                 },
               ),
@@ -111,6 +119,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                   return true; // Indicate whether to accept the draggable item
                 },
                 onAcceptWithDetails: (data) {
+                  voteNo();
                   print('Accepted: $data');
                 },
               ),
