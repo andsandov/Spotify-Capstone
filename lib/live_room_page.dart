@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_polls/song_cards.dart';
 
 class LiveRoomPage extends StatefulWidget {
   const LiveRoomPage({super.key, this.title = "Live Room Page"});
@@ -11,6 +12,22 @@ class LiveRoomPage extends StatefulWidget {
 
 class _LiveRoomPageState extends State<LiveRoomPage> {
   bool playState = false;
+
+  final List<SongCardData> _songCards = [];
+
+  void _addSong() {
+    setState(() {
+      _songCards.insert(
+          0,
+          SongCardData(
+            songName: "Song ${_songCards.length + 1}",
+            artistName: "Artist ${_songCards.length + 1}",
+            trackArt: Image.network(
+                'assets/trackArtPlaceholder.png'),
+            votes: [0, 0],// Placeholder art
+          ));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +48,13 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
       });
     }
 
+    void voteYes() {
+      _songCards[_songCards.length - 1].votes[0] += 1;
+    }
+    void voteNo() {
+      _songCards[_songCards.length - 1].votes[1] += 1;
+    }
+
     ButtonStyle playerButtonStyle = ElevatedButton.styleFrom(
         padding: EdgeInsets.all(containerHeight * 0.01),
         minimumSize: const Size.square(1));
@@ -41,18 +65,71 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white);
 
-
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            child: Text("Container for Song cards"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DragTarget<int>(
+                builder: (context, candidateData, rejectedData) {
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    color: candidateData.isNotEmpty ? Colors.green : Colors.red,
+                    child: Center(
+                      child: Text(
+                        candidateData.isNotEmpty
+                            ? 'Hovering: ${candidateData.first}' // Access the first item in the list
+                            : 'Drag an item here!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
+                onWillAcceptWithDetails: (data) {
+                  print('Will accept: $data');
+                  return true; // Indicate whether to accept the draggable item
+                },
+                onAcceptWithDetails: (data) {
+                  voteYes();
+                  print('Accepted: $data');
+                },
+              ),
+              SongCardList(songCards: _songCards, onAdd: _addSong),
+              DragTarget<int>(
+                builder: (context, candidateData, rejectedData) {
+                  return Container(
+                    width: 200,
+                    height: 200,
+                    color: candidateData.isNotEmpty ? Colors.green : Colors.red,
+                    child: Center(
+                      child: Text(
+                        candidateData.isNotEmpty
+                            ? 'Hovering: ${candidateData.first}' // Access the first item in the list
+                            : 'Drag an item here!',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
+                onWillAcceptWithDetails: (data) {
+                  print('Will accept: $data');
+                  return true; // Indicate whether to accept the draggable item
+                },
+                onAcceptWithDetails: (data) {
+                  voteNo();
+                  print('Accepted: $data');
+                },
+              ),
+            ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(                  // Temporary Card container
+              Container(
+                // Temporary Card container
                 padding: EdgeInsets.symmetric(vertical: containerHeight * 0.01),
                 margin: EdgeInsets.fromLTRB(
                     (screenWidth * 0.5) - ((containerWidth * 0.7) / 2),
@@ -65,7 +142,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                   color: Colors.indigoAccent,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Row(                         // Control bar
+                child: Row(
+                  // Control bar
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
@@ -76,7 +154,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
                     ElevatedButton(
                       style: playerButtonStyle,
                       onPressed: togglePlayState,
-                      child: Icon(playState ? Icons.pause : Icons.play_arrow, size: containerHeight * 0.06),
+                      child: Icon(playState ? Icons.pause : Icons.play_arrow,
+                          size: containerHeight * 0.06),
                     ),
                     ElevatedButton(
                         style: playerButtonStyle,
