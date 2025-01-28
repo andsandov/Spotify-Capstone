@@ -40,68 +40,74 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
     }
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              DragTarget<int>(
-                builder: (context, candidateData, rejectedData) {
-                  return Container(
-                    width: 200,
-                    height: 200,
-                    color: candidateData.isNotEmpty ? Colors.green : Colors.red,
-                    child: Center(
-                      child: Text(
-                        candidateData.isNotEmpty
-                            ? 'Hovering: ${candidateData.first}' // Access the first item in the list
-                            : 'Drag an item here!',
-                        style: TextStyle(color: Colors.white),
-                      ),
+        body: Stack(
+          children: [
+            const BackButton(),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DragTarget<int>(
+                      builder: (context, candidateData, rejectedData) {
+                        return Container(
+                          width: 200,
+                          height: 200,
+                          color:
+                              candidateData.isNotEmpty ? Colors.green : Colors.red,
+                          child: Center(
+                            child: Text(
+                              candidateData.isNotEmpty
+                                  ? 'Hovering: ${candidateData.first}' // Access the first item in the list
+                                  : 'Drag an item here!',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        );
+                      },
+                      onWillAcceptWithDetails: (data) {
+                        print('Will accept: $data');
+                        return true; // Indicate whether to accept the draggable item
+                      },
+                      onAcceptWithDetails: (data) {
+                        voteYes();
+                        print('Accepted: $data');
+                      },
                     ),
-                  );
-                },
-                onWillAcceptWithDetails: (data) {
-                  print('Will accept: $data');
-                  return true; // Indicate whether to accept the draggable item
-                },
-                onAcceptWithDetails: (data) {
-                  voteYes();
-                  print('Accepted: $data');
-                },
-              ),
-              SongCardList(songCards: _songCards, onAdd: _addSong),
-              DragTarget<int>(
-                builder: (context, candidateData, rejectedData) {
-                  return Container(
-                    width: 200,
-                    height: 200,
-                    color: candidateData.isNotEmpty ? Colors.green : Colors.red,
-                    child: Center(
-                      child: Text(
-                        candidateData.isNotEmpty
-                            ? 'Hovering: ${candidateData.first}' // Access the first item in the list
-                            : 'Drag an item here!',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    SongCardList(songCards: _songCards, onAdd: _addSong),
+                    DragTarget<int>(
+                      builder: (context, candidateData, rejectedData) {
+                        return Container(
+                          width: 200,
+                          height: 200,
+                          color:
+                              candidateData.isNotEmpty ? Colors.green : Colors.red,
+                          child: Center(
+                            child: Text(
+                              candidateData.isNotEmpty
+                                  ? 'Hovering: ${candidateData.first}' // Access the first item in the list
+                                  : 'Drag an item here!',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        );
+                      },
+                      onWillAcceptWithDetails: (data) {
+                        print('Will accept: $data');
+                        return true; // Indicate whether to accept the draggable item
+                      },
+                      onAcceptWithDetails: (data) {
+                        voteNo();
+                        print('Accepted: $data');
+                      },
                     ),
-                  );
-                },
-                onWillAcceptWithDetails: (data) {
-                  print('Will accept: $data');
-                  return true; // Indicate whether to accept the draggable item
-                },
-                onAcceptWithDetails: (data) {
-                  voteNo();
-                  print('Accepted: $data');
-                },
-              ),
-            ],
-          ),
-          ControlBar(size: shortestSide)
-        ],
-      ),
-    );
+                  ],
+                ),
+                ControlBar(size: shortestSide)
+              ],
+            ),
+      ],
+    ));
   }
 }

@@ -173,6 +173,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
               },
               child: Stack(
                 children: [
+                  const BackButton(),
                   Container(
                       padding: const EdgeInsets.all(10),
                       child: const BackButton()),
