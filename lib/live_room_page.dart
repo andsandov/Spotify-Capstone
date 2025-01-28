@@ -12,7 +12,6 @@ class LiveRoomPage extends StatefulWidget {
 }
 
 class _LiveRoomPageState extends State<LiveRoomPage> {
-
   final List<SongCardData> _songCards = [];
 
   void _addSong() {
@@ -22,9 +21,8 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
           SongCardData(
             songName: "Song ${_songCards.length + 1}",
             artistName: "Artist ${_songCards.length + 1}",
-            trackArt: Image.network(
-                'assets/trackArtPlaceholder.png'),
-            votes: [0, 0],// Placeholder art
+            trackArt: Image.network('assets/trackArtPlaceholder.png'),
+            votes: [0, 0], // Placeholder art
           ));
     });
   }
@@ -36,6 +34,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
     void voteYes() {
       _songCards[_songCards.length - 1].votes[0] += 1;
     }
+
     void voteNo() {
       _songCards[_songCards.length - 1].votes[1] += 1;
     }
