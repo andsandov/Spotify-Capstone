@@ -36,7 +36,6 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
         if (myController.text == password) {
           myController.dispose();
           log("correct password");
-          // TODO change this to go the LiveRoom page
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const LiveRoomPage()));
         } else {
