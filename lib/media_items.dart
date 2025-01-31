@@ -1,0 +1,38 @@
+import 'package:flutter/cupertino.dart';
+
+class MediaItemList extends StatefulWidget {
+
+
+  @override
+  State<StatefulWidget> createState() => _MediaItemListState();
+}
+
+class _MediaItemListState extends State<MediaItemList> {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
+class MediaItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
+class MediaItemData {
+  const MediaItemData ({
+    required this.songName,
+    required this.artistName,
+    required this.trackArt,
+    required this.votes,
+  });
+
+  final String songName;
+  final String artistName;
+  final Image trackArt;
+  final List<double> votes;
+}
