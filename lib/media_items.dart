@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MediaItemList extends StatefulWidget {
   const MediaItemList({super.key});
@@ -30,14 +31,12 @@ class MediaItem extends StatelessWidget {
 
 class MediaItemData {
   const MediaItemData ({
-    required this.songName,
-    required this.artistName,
-    required this.trackArt,
-    required this.votes,
+    required this.title,
+    required this.details,
+    required this.image,
   });
 
-  final String songName;
-  final String artistName;
-  final Image trackArt;
-  final List<double> votes;
+  final String title;
+  final String details;
+  final Image image;
 }
