@@ -24,8 +24,40 @@ class MediaItem extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double screenHeight = MediaQuery.sizeOf(context).height;
+    
+    return Container(
+      margin: EdgeInsets.all(screenHeight * 0.01),
+      padding: EdgeInsets.all(screenHeight * 0.01),
+      constraints: BoxConstraints(
+        maxHeight: screenHeight * 0.12
+      ),
+      decoration: const BoxDecoration(
+        color: Colors.blue
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(width: screenHeight * 0.1,
+                height: screenHeight * 0.1,
+                child: data.image,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(data.title),
+                  Text(data.details),
+                ],
+              )
+            ],
+          ),
+          IconButton(onPressed: () => {}, icon: const Icon(Icons.more_vert))
+        ]
+      ),
+    );
   }
 }
 
