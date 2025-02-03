@@ -29,9 +29,9 @@ class MediaItem extends StatelessWidget {
     
     return Container(
       margin: EdgeInsets.all(screenHeight * 0.01),
-      padding: EdgeInsets.all(screenHeight * 0.01),
+      padding: EdgeInsets.all(screenHeight * 0.02),
       constraints: BoxConstraints(
-        maxHeight: screenHeight * 0.12
+        maxHeight: screenHeight * 0.16
       ),
       decoration: const BoxDecoration(
         color: Colors.blue
