@@ -42,9 +42,14 @@ class MediaItem extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(width: screenHeight * 0.1,
-                height: screenHeight * 0.1,
-                child: data.image,),
+              Container(
+                constraints: BoxConstraints(
+                  maxHeight: screenHeight * 0.15,
+                  maxWidth: screenHeight * 0.15
+                ),
+                margin: EdgeInsets.fromLTRB(0, 0, screenHeight * 0.05, 0),
+                child: data.image
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
