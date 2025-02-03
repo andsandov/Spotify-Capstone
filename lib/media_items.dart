@@ -51,6 +51,7 @@ class MediaItem extends StatelessWidget {
                 child: data.image
               ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(data.title),
