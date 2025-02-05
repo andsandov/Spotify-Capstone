@@ -56,14 +56,16 @@ class MediaItem extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.sizeOf(context).width;
-    double screenHeight = MediaQuery.sizeOf(context).height;
-    
+    double containerHeight = MediaQuery.sizeOf(context).height;
+
+    double itemMargin = containerHeight * 0.01;
+    double itemPadding = containerHeight * 0.01;
+    double imageSizeConstraint = containerHeight * 0.09;
     return Container(
-      margin: EdgeInsets.all(screenHeight * 0.01),
-      padding: EdgeInsets.all(screenHeight * 0.02),
+      margin: EdgeInsets.fromLTRB(itemMargin, 0, itemMargin, itemMargin),
+      padding: EdgeInsets.all(itemPadding),
       constraints: BoxConstraints(
-        maxHeight: screenHeight * 0.16
+        maxHeight: containerHeight * 0.12
       ),
       decoration: const BoxDecoration(
         color: Colors.blue
@@ -75,11 +77,11 @@ class MediaItem extends StatelessWidget {
             children: [
               Container(
                 constraints: BoxConstraints(
-                  maxHeight: screenHeight * 0.15,
-                  maxWidth: screenHeight * 0.15
+                  maxHeight: imageSizeConstraint,
+                  maxWidth: imageSizeConstraint
                 ),
-                margin: EdgeInsets.fromLTRB(0, 0, screenHeight * 0.05, 0),
-                child: data.image
+                margin: EdgeInsets.fromLTRB(0, 0, containerHeight * 0.05, 0),
+                child: Image.network(data.imageUrl)
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
