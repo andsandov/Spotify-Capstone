@@ -14,10 +14,38 @@ class MediaItemList extends StatefulWidget {
 }
 
 class _MediaItemListState extends State<MediaItemList> {
+  late List<MediaItemData> _dataList;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _dataList = List.from(widget.initDataList);
+  }
+
+  addMediaItem() {
+    setState(() {
+      _dataList.add(
+          const MediaItemData(
+              title: "bruh",
+              details: "bruh2",
+              imageUrl: 'https://th.bing.com/th/id/R.e78f8e7c326d3e7cdcf053d58f494542?rik=bXopo7rm0XIdFQ&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fc%2fc7%2fDomestic_shorthaired_cat_face.jpg&ehk=NByReFekRNa%2fCe0v9gNPEb0tpYmVhy4kI5uaC1l1AUI%3d&risl=1&pid=ImgRaw&r=0'
+          )
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     throw UnimplementedError();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        for (var i = 0; i < _dataList.length; i++)
+          MediaItem(data: _dataList[i]),
+      ],
+    );
   }
 }
 
