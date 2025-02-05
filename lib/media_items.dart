@@ -2,8 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MediaItemList extends StatefulWidget {
-  const MediaItemList({super.key});
-  
+  const MediaItemList({
+    super.key,
+    required this.initDataList
+  });
+
+  final List<MediaItemData> initDataList;
+
   @override
   State<StatefulWidget> createState() => _MediaItemListState();
 }
