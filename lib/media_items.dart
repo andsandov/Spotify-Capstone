@@ -37,8 +37,6 @@ class _MediaItemListState extends State<MediaItemList> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
