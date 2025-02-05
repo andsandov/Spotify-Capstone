@@ -44,6 +44,7 @@ class _MediaItemListState extends State<MediaItemList> {
       children: [
         for (var i = 0; i < _dataList.length; i++)
           MediaItem(data: _dataList[i]),
+        ElevatedButton(onPressed: addMediaItem, child: const Text('add media item'))
       ],
     );
   }
