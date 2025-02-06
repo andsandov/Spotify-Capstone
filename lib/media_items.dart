@@ -104,10 +104,10 @@ class MediaItemData {
   const MediaItemData ({
     required this.title,
     required this.details,
-    required this.image,
+    required this.imageUrl,
   });
 
   final String title;
   final String details;
-  final Image image;
+  final String imageUrl;
 }
