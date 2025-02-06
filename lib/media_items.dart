@@ -17,7 +17,6 @@ class _MediaItemListState extends State<MediaItemList> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _dataList = List.from(widget.initDataList);
   }
