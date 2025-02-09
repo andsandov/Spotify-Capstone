@@ -20,7 +20,7 @@ class _VotelistItemState extends State<VotelistItem> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const VotingPage()));
       },
-      child: MediaItem(data: widget.itemData),
+      child: MediaItem(itemData: widget.itemData),
     );
   }
 }
