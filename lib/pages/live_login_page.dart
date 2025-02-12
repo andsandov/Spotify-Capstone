@@ -36,7 +36,6 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
         if (myController.text == password) {
           myController.dispose();
           log("correct password");
-          // TODO change this to go the LiveRoom page
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const LiveRoomPage()));
         } else {
@@ -52,6 +51,8 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    double shortestSide = MediaQuery.sizeOf(context).shortestSide;
+
     return Scaffold(
       body: Center(
         child: Column(
