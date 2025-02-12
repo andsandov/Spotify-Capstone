@@ -15,78 +15,77 @@ class _VotingPageState extends State<VotingPage> {
   int yesCounter = 0;
   @override
   Widget build(BuildContext context) {
+    double shortestSide = MediaQuery.sizeOf(context).shortestSide;
+
     return Scaffold(
-      body : Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                widget.title,
-                style: const TextStyle(fontSize: 30),
-              ),
-              const SizedBox(height: 20, width: 50,),
-              Column(
-                children: buttons,
-              ),
-              Container(
-                padding: const EdgeInsets.all(200),
-                color : Colors.blue,
-                child : const Text(
-                  "Song",
-                )
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                      "No's : $noCounter"
-                  ),
-                  ElevatedButton(
+      body: Stack(
+        children: [
+          const BackButton(),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  widget.title,
+                  style: const TextStyle(fontSize: 30),
+                ),
+                const SizedBox(
+                  height: 20,
+                  width: 50,
+                ),
+                Column(
+                  children: buttons,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(200),
+                  color: Colors.blue,
+                  child: const Text("Song",)
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text("No's : $noCounter"),
+                    ElevatedButton(
                       onPressed: () {
                         setState(() {
                           noCounter += 1;
                         });
-                      } ,
-                      child: const Text("X")
-                  ),
-                  ElevatedButton(
+                      },
+                      child: const Text("X")),
+                    ElevatedButton(
                       onPressed: () {
                         setState(() {
                           yesCounter += 1;
                         });
-                      } ,
-                      child: const Text("Y")
-                  ),
-                  Text(
-                      "Yes's : $yesCounter"
-                  ),
-                ],
-              ),
+                      },
+                      child: const Text("Y")),
+                    Text("Yes's : $yesCounter"),
+                  ],
+                ),
               ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
+                onPressed: () {
+                  Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Songque())
-                  );},
-                  child: const Text("QUE")
+                          builder: (context) => const Songque()));
+                },
+                child: const Text("QUE")
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(
-                        context
-                    );
-                  },
-                  child: const Text("go back")
-              ),
-            ],
-          )
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.pop(context);
+              //   },
+              //   child: const Text("go back")
+              // ),
+            ]),
+          ),
+        ],
       ),
-      floatingActionButton : FloatingActionButton(
-        onPressed: () { },
-        child : const Text("+"),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Text("+"),
       ),
     );
   }

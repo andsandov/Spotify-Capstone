@@ -156,6 +156,8 @@ class _VotelistsPageState extends State<VotelistsPage> {
 
   @override
   Widget build(BuildContext context) {
+    double shortestSide = MediaQuery.sizeOf(context).shortestSide;
+
     // Get screen size and FAB dimensions
     const double fabHeight = 56.0; // Default FAB height
     final double bottomPadding = MediaQuery.of(context).viewPadding.bottom;
@@ -171,9 +173,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
               },
               child: Stack(
                 children: [
-                  Container(
-                      padding: const EdgeInsets.all(10),
-                      child: const BackButton()),
+                  const BackButton(),
                   Center(
                     child: Column(
                       children: [
