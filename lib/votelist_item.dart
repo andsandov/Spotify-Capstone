@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_polls/media_items.dart';
-import 'package:spotify_polls/voting_page.dart';
+import 'package:spotify_polls/pages/voting_page.dart';
 
 class VotelistItem extends StatefulWidget {
   const VotelistItem ({super.key,

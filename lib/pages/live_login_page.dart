@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:spotify_polls/live_room_page.dart';
+import 'package:spotify_polls/pages/live_room_page.dart';
 
 class LiveLoginPage extends StatefulWidget {
   const LiveLoginPage({super.key, this.title = "Live Page"});
@@ -36,7 +36,6 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
         if (myController.text == password) {
           myController.dispose();
           log("correct password");
-          // TODO change this to go the LiveRoom page
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const LiveRoomPage()));
         } else {
@@ -52,6 +51,8 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    double shortestSide = MediaQuery.sizeOf(context).shortestSide;
+
     return Scaffold(
       body: Center(
         child: Column(
