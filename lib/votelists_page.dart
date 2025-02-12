@@ -22,17 +22,6 @@ class _VotelistsPageState extends State<VotelistsPage> {
 
   void addNewVotelist(String name) {
     setState(() {
-      buttons.add(
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const VotingPage()));
-            },
-            child: Text(name),
-          ),
-        ),
       votelists.add(
         VotelistItem(itemData: MediaItemData(
             title: name,
@@ -172,9 +161,6 @@ class _VotelistsPageState extends State<VotelistsPage> {
               },
               child: Stack(
                 children: [
-                  Container(
-                      padding: const EdgeInsets.all(10),
-                      child: const BackButton()),
                   Center(
                     child: Column(
                       children: [
@@ -216,6 +202,9 @@ class _VotelistsPageState extends State<VotelistsPage> {
                       ),
                     ),
                   ],
+                  Container(
+                      padding: const EdgeInsets.all(10),
+                      child: const BackButton()),
                 ],
               )),
           Align(
