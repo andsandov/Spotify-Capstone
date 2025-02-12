@@ -4,62 +4,23 @@ class MediaItemList<Widget> extends StatefulWidget {
   const MediaItemList({
     super.key,
     required this.mediaItems,
-    this.controller
   });
 
   final List<Widget> mediaItems;
-
-  final MediaItemListController? controller;
 
   @override
   State<StatefulWidget> createState() => _MediaItemListState();
 }
 
-class MediaItemListController {
-  _MediaItemListState? _state;
-
-  void _attach(_MediaItemListState state) {
-    _state = state;
-  }
-
-  void addItem(Widget item) {
-    _state?.addMediaItem(item);
-  }
-
-  void removeItem(int index) {
-    _state?.removeMediaItem(index);
-  }
-}
-
 class _MediaItemListState extends State<MediaItemList> {
-  late List<Widget> _mediaItems;
-
-  @override
-  void initState() {
-    super.initState();
-    _mediaItems = List.from(widget.mediaItems);
-    widget.controller?._attach(this);
-  }
-
-  void addMediaItem(Widget item) {
-    setState(() {
-      _mediaItems.add(item);
-    });
-  }
-
-  void removeMediaItem(int index) {
-    setState(() {
-      _mediaItems.removeAt(index);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        for (var i = 0; i < _mediaItems.length; i++)
-          _mediaItems[i],
+        for (var i = 0; i < widget.mediaItems.length; i++)
+          widget.mediaItems[i],
       ],
     );
   }
