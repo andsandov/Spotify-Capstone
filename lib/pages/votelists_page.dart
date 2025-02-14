@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:spotify_polls/pages/live_login_page.dart';
 import 'package:spotify_polls/media_items.dart';
-import 'package:spotify_polls/votelist_item.dart';
+import 'package:spotify_polls/tappable_media_item.dart';
 import 'package:spotify_polls/pages/voting_page.dart';
 
 class VotelistsPage extends StatefulWidget {
@@ -23,11 +23,16 @@ class _VotelistsPageState extends State<VotelistsPage> {
   void addNewVotelist(String name) {
     setState(() {
       votelists.add(
-        VotelistItem(itemData: MediaItemData(
+        TappableMediaItem(itemData: MediaItemData(
             title: name,
             details: "bruh2",
             imageUrl: 'https://th.bing.com/th/id/R.e78f8e7c326d3e7cdcf053d58f494542?rik=bXopo7rm0XIdFQ&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fc%2fc7%2fDomestic_shorthaired_cat_face.jpg&ehk=NByReFekRNa%2fCe0v9gNPEb0tpYmVhy4kI5uaC1l1AUI%3d&risl=1&pid=ImgRaw&r=0'
-        ))
+          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const VotingPage()));
+          },
+        )
       );
     });
   }
