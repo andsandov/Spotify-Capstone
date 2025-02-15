@@ -152,6 +152,9 @@ class _VotelistsPageState extends State<VotelistsPage> {
   @override
   Widget build(BuildContext context) {
     // Get screen size and FAB dimensions
+    double screenWidth = MediaQuery.sizeOf(context).width;
+    double screenHeight = MediaQuery.sizeOf(context).height;
+
     const double fabHeight = 56.0; // Default FAB height
     final double bottomPadding = MediaQuery.of(context).viewPadding.bottom;
     final double rightPadding = MediaQuery.of(context).viewPadding.right;
@@ -173,7 +176,11 @@ class _VotelistsPageState extends State<VotelistsPage> {
                           "Votelists",
                           style: TextStyle(fontSize: 20),
                         ),
-                        MediaItemList(mediaItems: votelists)
+                        Container(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          constraints: BoxConstraints(maxWidth: screenWidth * 0.7),
+                          child: MediaItemList(mediaItems: votelists),
+                        )
                       ],
                     ),
                   ),
