@@ -222,7 +222,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
                           const SizedBox(height: 10),
                           ElevatedButton(
                               onPressed: () {
-                                _showRegisterPopup(context);
+                                showRegisterPopup(context);
                                 log("Register Votelist pressed");
                               },
                               child: const Text("Register Votelist")),
