@@ -53,7 +53,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
       );
     }
 
-    displayInputFieldValueButton() {
+    submitButton() {
       return FloatingActionButton(
         // When the user presses the button, show an alert dialog containing
         // the text that the user has entered into the text field.
@@ -83,7 +83,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    displayInputFieldValueButton(),
+                    submitButton(),
                     ElevatedButton(
                       onPressed: () {
                         myController.dispose();
