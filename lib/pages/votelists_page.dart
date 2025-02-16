@@ -17,8 +17,6 @@ class VotelistsPage extends StatefulWidget {
 }
 
 class _VotelistsPageState extends State<VotelistsPage> {
-  // final MediaItemListController listController = MediaItemListController();
-  List<Widget> votelists = [];
   List<MediaItemData> votelists = [];
   List<MediaItemData> playlists = [
     const MediaItemData(
