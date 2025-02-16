@@ -21,7 +21,7 @@ class _TappableMediaItemState extends State<TappableMediaItem> {
     return GestureDetector(
       onTap: () {
         if (widget.onTap != null) {
-          widget.onTap!;
+          widget.onTap!();
         }
       },
       child: MediaItem(itemData: widget.itemData),
