@@ -58,7 +58,8 @@ class _VotelistsPageState extends State<VotelistsPage> {
         // When the user presses the button, show an alert dialog containing
         // the text that the user has entered into the text field.
         onPressed: () {
-          Navigator.of(context).pop(myController.text);
+          Navigator.of(context)
+              .pop(MediaItemData(title: myController.text, details: ''));
           myController.dispose();
         },
         child: const Text("Submit"),
