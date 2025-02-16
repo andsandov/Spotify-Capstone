@@ -254,9 +254,10 @@ class _VotelistsPageState extends State<VotelistsPage> {
               padding: const EdgeInsets.all(20),
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.push(context,
+                  Navigator.push(
+                      context,
                       MaterialPageRoute(
-                      builder: (context) => const LiveLoginPage()));
+                          builder: (context) => const LiveLoginPage()));
                 },
                 heroTag: null,
                 child: const Text(
