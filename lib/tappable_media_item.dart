@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_polls/media_items.dart';
-import 'package:spotify_polls/pages/voting_page.dart';
 
 class TappableMediaItem extends StatefulWidget {
   const TappableMediaItem ({super.key,
