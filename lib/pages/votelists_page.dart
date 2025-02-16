@@ -38,8 +38,6 @@ class _VotelistsPageState extends State<VotelistsPage> {
     });
   }
 
-  bool _isBlurred = false;
-
   void _toggleBlur() {
     setState(() {
       _isBlurred = !_isBlurred;
