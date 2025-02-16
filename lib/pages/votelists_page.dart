@@ -155,12 +155,12 @@ class _VotelistsPageState extends State<VotelistsPage> {
         },
       );
 
-    if (result != null) {
-      addNewVotelist(result);
-    }
+      if (result != null) {
+        addNewVotelist(result);
+      }
 
-    _toggleBlur();
-  }
+      _toggleBlur();
+    }
 
     return Scaffold(
       body: Stack(
