@@ -108,47 +108,6 @@ class _VotelistsPageState extends State<VotelistsPage> {
     _toggleBlur();
   }
 
-  void _showRegisterPopup(BuildContext context) async {
-    final result = await showDialog<String>(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text("Register popup", style: TextStyle(fontSize: 18)),
-                const SizedBox(height: 20),
-                const MediaItemList(mediaItems: [
-                  MediaItem(itemData: MediaItemData(title: "playlist1", details: "playlist1 details", imageUrl: 'https://th.bing.com/th/id/R.e78f8e7c326d3e7cdcf053d58f494542?rik=bXopo7rm0XIdFQ&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fc%2fc7%2fDomestic_shorthaired_cat_face.jpg&ehk=NByReFekRNa%2fCe0v9gNPEb0tpYmVhy4kI5uaC1l1AUI%3d&risl=1&pid=ImgRaw&r=0'
-                  )),
-                  MediaItem(itemData: MediaItemData(title: "playlist2", details: "playlist2 details", imageUrl: 'https://th.bing.com/th/id/R.e78f8e7c326d3e7cdcf053d58f494542?rik=bXopo7rm0XIdFQ&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fc%2fc7%2fDomestic_shorthaired_cat_face.jpg&ehk=NByReFekRNa%2fCe0v9gNPEb0tpYmVhy4kI5uaC1l1AUI%3d&risl=1&pid=ImgRaw&r=0'
-                  ))
-                ]),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Close"),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-
-    if (result != null) {
-      addNewVotelist(result);
-    }
-
-    _toggleBlur();
-  }
-
   @override
   Widget build(BuildContext context) {
     // Get screen size and FAB dimensions
@@ -158,6 +117,50 @@ class _VotelistsPageState extends State<VotelistsPage> {
     const double fabHeight = 56.0; // Default FAB height
     final double bottomPadding = MediaQuery.of(context).viewPadding.bottom;
     final double rightPadding = MediaQuery.of(context).viewPadding.right;
+
+    void showRegisterPopup(BuildContext context) async {
+      final result = await showDialog<MediaItemData>(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text("Register popup", style: TextStyle(fontSize: 18)),
+                  const SizedBox(height: 20),
+                  MediaItemList(mediaItems: [
+                    for (var itemData in playlists)
+                      TappableMediaItem(
+                        itemData: itemData,
+                        onTap: () {
+                          Navigator.of(context).pop(itemData);
+                        },
+                      )
+                  ]),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Close"),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
+    if (result != null) {
+      addNewVotelist(result);
+    }
+
+    _toggleBlur();
+  }
 
     return Scaffold(
       body: Stack(
