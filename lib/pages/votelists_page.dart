@@ -181,8 +181,21 @@ class _VotelistsPageState extends State<VotelistsPage> {
                         ),
                         Container(
                           padding: const EdgeInsets.symmetric(vertical: 20),
-                          constraints: BoxConstraints(maxWidth: screenWidth * 0.7),
-                          child: MediaItemList(mediaItems: votelists),
+                          constraints:
+                              BoxConstraints(maxWidth: screenWidth * 0.7),
+                          child: MediaItemList(mediaItems: [
+                            for (var item in votelists)
+                              TappableMediaItem(
+                                itemData: item,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const VotingPage()));
+                                },
+                              )
+                          ]),
                         )
                       ],
                     ),
