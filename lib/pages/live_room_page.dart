@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_polls/control_bar.dart';
 import 'package:spotify_polls/song_cards.dart';
+import 'package:spotify_polls/song_queue.dart';
+
 import '../media_items.dart';
 
 class LiveRoomPage extends StatefulWidget {
@@ -54,6 +56,7 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
     }
 
     return Scaffold(
+        endDrawer: SongQueue(data: liveQueueData),
         body: Stack(
           children: [
             const BackButton(),
