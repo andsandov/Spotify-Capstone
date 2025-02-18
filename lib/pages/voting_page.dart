@@ -21,7 +21,6 @@ class _VotingPageState extends State<VotingPage> {
       appBar: CustomAppBar(title: widget.title),
       body: Stack(
         children: [
-          const BackButton(),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
