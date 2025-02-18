@@ -16,7 +16,6 @@ class _VotingPageState extends State<VotingPage> {
   int yesCounter = 0;
   @override
   Widget build(BuildContext context) {
-    double shortestSide = MediaQuery.sizeOf(context).shortestSide;
 
     return Scaffold(
       appBar: CustomAppBar(title: widget.title),
