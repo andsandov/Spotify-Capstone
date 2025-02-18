@@ -4,7 +4,7 @@ import 'package:spotify_polls/custom_app_bar.dart';
 import 'package:spotify_polls/song_cards.dart';
 
 class LiveRoomPage extends StatefulWidget {
-  const LiveRoomPage({super.key, this.title = "Live Room Page"});
+  const LiveRoomPage({super.key, this.title = "Live Room"});
 
   final String title;
 
