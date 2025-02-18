@@ -44,7 +44,6 @@ class _LiveRoomPageState extends State<LiveRoomPage> {
       appBar: CustomAppBar(title: widget.title),
         body: Stack(
           children: [
-            const BackButton(),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
