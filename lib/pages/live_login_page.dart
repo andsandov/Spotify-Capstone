@@ -58,10 +58,6 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              widget.title,
-              style: const TextStyle(fontSize: 30),
-            ),
             inputField(),
             displayInputFieldValueSubmit(),
             ElevatedButton(
