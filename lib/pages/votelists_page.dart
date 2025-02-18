@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:spotify_polls/custom_app_bar.dart';
 import 'package:spotify_polls/pages/live_login_page.dart';
 import 'package:spotify_polls/pages/voting_page.dart';
 
@@ -162,6 +163,7 @@ class _VotelistsPageState extends State<VotelistsPage> {
     final double rightPadding = MediaQuery.of(context).viewPadding.right;
 
     return Scaffold(
+      appBar: CustomAppBar(title: widget.title),
       body: Stack(
         children: [
           GestureDetector(
