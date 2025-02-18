@@ -26,10 +26,6 @@ class _VotingPageState extends State<VotingPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  widget.title,
-                  style: const TextStyle(fontSize: 30),
-                ),
                 const SizedBox(
                   height: 20,
                   width: 50,
