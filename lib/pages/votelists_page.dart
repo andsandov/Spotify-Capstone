@@ -177,10 +177,6 @@ class _VotelistsPageState extends State<VotelistsPage> {
                   Center(
                     child: Column(
                       children: [
-                        const Text(
-                          "Main Page Content",
-                          style: TextStyle(fontSize: 20),
-                        ),
                         Column(
                           children: buttons,
                         )
