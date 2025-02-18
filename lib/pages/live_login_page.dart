@@ -52,8 +52,6 @@ class _LiveLoginPageState extends State<LiveLoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    double shortestSide = MediaQuery.sizeOf(context).shortestSide;
-
     return Scaffold(
       appBar: CustomAppBar(title: widget.title,),
       body: Center(
