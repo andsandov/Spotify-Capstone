@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:spotify_polls/custom_app_bar.dart';
 import 'package:spotify_polls/pages/live_login_page.dart';
 import 'package:spotify_polls/pages/voting_page.dart';
 
@@ -156,14 +157,13 @@ class _VotelistsPageState extends State<VotelistsPage> {
 
   @override
   Widget build(BuildContext context) {
-    double shortestSide = MediaQuery.sizeOf(context).shortestSide;
-
     // Get screen size and FAB dimensions
     const double fabHeight = 56.0; // Default FAB height
     final double bottomPadding = MediaQuery.of(context).viewPadding.bottom;
     final double rightPadding = MediaQuery.of(context).viewPadding.right;
 
     return Scaffold(
+      appBar: CustomAppBar(title: widget.title),
       body: Stack(
         children: [
           GestureDetector(
@@ -173,14 +173,9 @@ class _VotelistsPageState extends State<VotelistsPage> {
               },
               child: Stack(
                 children: [
-                  const BackButton(),
                   Center(
                     child: Column(
                       children: [
-                        const Text(
-                          "Main Page Content",
-                          style: TextStyle(fontSize: 20),
-                        ),
                         Column(
                           children: buttons,
                         )
