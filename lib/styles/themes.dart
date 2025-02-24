@@ -5,7 +5,7 @@ ThemeData get defaultTheme {
     fontFamily: "Georgia",
     textTheme: const TextTheme(
       headlineLarge: TextStyle(fontSize: 64.0),
-      headlineMedium: TextStyle(), // Replace all text styles with custom values
+      headlineMedium: TextStyle(fontSize: 24.0), // Replace all text styles with custom values
       headlineSmall: TextStyle(fontSize: 16.0),
       bodyLarge: TextStyle(),
       bodyMedium: TextStyle(),
