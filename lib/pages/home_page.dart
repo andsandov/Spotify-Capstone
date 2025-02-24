@@ -1,5 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import '../assets/constants.dart' as constants;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.title = "Home Page"});
@@ -13,8 +15,51 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
+        body: SingleChildScrollView(
+      child: Column(
+        children: [TitleSection(), ButtonSection()],
+      ),
+    ));
+  }
+}
 
+class TitleSection extends StatelessWidget {
+  const TitleSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+              child: Text(
+            constants.appName,
+            style: Theme.of(context).textTheme.headlineLarge,
+            maxLines: 2,
+          ))
+        ],
+      ),
+    );
+  }
+}
+
+class ButtonSection extends StatelessWidget {
+  const ButtonSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          TextButton(onPressed: () {log("clicked Sign In");}, child: const Text(constants.signIn)),
+          TextButton(onPressed: () {log("clicked Join Live");}, child: const Text(constants.joinLive))
+        ],
+      ),
     );
   }
 }
