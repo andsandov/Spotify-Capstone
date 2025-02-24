@@ -31,14 +31,20 @@ class TitleSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Row(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Flexible(
               child: Text(
             constants.appName,
             style: Theme.of(context).textTheme.headlineLarge,
-            maxLines: 2,
+          )),
+          Flexible(
+              child: Text(
+            constants.appDescription,
+            style: Theme.of(context).textTheme.headlineSmall,
+            textAlign: TextAlign.center,
           ))
         ],
       ),
@@ -56,8 +62,16 @@ class ButtonSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          TextButton(onPressed: () {log("clicked Sign In");}, child: const Text(constants.signIn)),
-          TextButton(onPressed: () {log("clicked Join Live");}, child: const Text(constants.joinLive))
+          TextButton(
+              onPressed: () {
+                log("clicked Sign In");
+              },
+              child: const Text(constants.signIn)),
+          TextButton(
+              onPressed: () {
+                log("clicked Join Live");
+              },
+              child: const Text(constants.joinLive))
         ],
       ),
     );
